@@ -141,7 +141,12 @@
 
 ---
 
-### Creditos
+### Em Breve
+> - Paleta de cores no MagicaVoxel com todos os blocos de concreto aceites pelo script total de 256 
+> - Rotação do modelo no mapa
+> - Pré-visualização  do tamanho no mapa
+
+### Créditos
 
 >
 > - Modelo 3d [zixisun02](https://sketchfab.com/zixisun51)

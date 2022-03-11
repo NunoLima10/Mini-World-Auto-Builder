@@ -18,11 +18,11 @@
 >
 >Localiza no seu dispositivo o seu modelo selecione e a abra ele.
 >
-><img src="Imagens/open_file.jpg" height=500>
+><img src="Imagens/open_file.jpg">
 >
 >Caso o seu modelo tenha textura ela deve ser como uma única imagem que é o formato aceito pelo site.
 >
-><img src="Imagens/open_texture.jpg" height=500>
+><img src="Imagens/open_texture.jpg">
 >
 >***Qualidade vs Tamanho***
 >
@@ -35,7 +35,7 @@
 >
 >Você pode regular o número de voxel arrastando essa barra
 >
-><img src="Imagens/quality.jpg" height=500>
+><img src="Imagens/quality.jpg">
 >
 >***Tamanho da construção***
 >
@@ -51,15 +51,15 @@
 >continuar fazendo mais alterações usando o MagicaVoxel que será mencionado mais tarde.Quando o 
 >modelo está pronto para ser construído deve salvar ele como `texto` que é o formato aceitado pelo script.
 >
-><img src="Imagens/save_as_text.jpg" height=500>
+><img src="Imagens/save_as_text.jpg">
 >
 >Após isso o ficheiro será baixado automaticamente.
-
+>
 >O Arquivo contém as coordenadas e a cor em RGB de cada voxel.
 >
 >Cole ou substitua o conteúdo no ficheiro com nome [voxel_data](voxel_data.txt)
 >
-><img src="Imagens/voxel_data.jpg" height=500>
+><img src="Imagens/voxel_data.jpg">
 >
 
 ---
@@ -68,11 +68,10 @@
 >
 >Dependendo da quantidade de dados os scripts pode demorar alguns segundos 
 >para finalizar a execução.
-
-
-Entre no ficheiro com nome [lua_script](lua_script.txt) copie tudo.
-
-Crie um novo script no Mini World e cole tudo
+>
+>Entre no ficheiro com nome [lua_script](lua_script.txt) copie tudo.
+>
+>Crie um novo script no Mini World e cole tudo
 
 
 

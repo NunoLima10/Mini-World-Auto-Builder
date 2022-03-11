@@ -67,11 +67,87 @@
 >### 3-Execute o script
 >
 >Dependendo da quantidade de dados os scripts pode demorar alguns segundos 
->para finalizar a execução.
+>para finalizar a execução,requer o interpretador do python instalado.
 >
->Entre no ficheiro com nome [lua_script](lua_script.txt) copie tudo.
+>Use a sua IDE ou seguia os passos para executar pelo terminal.
+>
+>  - Entre na pasta baixada
+>  - Clique no endereço 
+>  - Digite cmd
+>  
+>  
+>Automaticamente abrirá o endereço no terminal, para executar digite o seguinte comando 
+>
+>`````
+>python main.py
+>`````
+>
+><img src="Imagens/run_script.jpg">
+
+---
+
+>### 4-Copiar codigo gerado
+>Após terminal e execução do código entre no ficheiro com nome [lua_script](lua_script.txt) copie tudo.
 >
 >Crie um novo script no Mini World e cole tudo
+>
+><img src="Imagens/save_script.jpg">
+>Para sua construção manter no mapa ao mudar para modo criativo você deve desativar o reset 
+>do mapa nas configurações do objetivo do jogo.
+>
+><img src="Imagens/map_reset.jpg">
+
+---
+
+>### 5-Construir
+>Escolhe um local e clique, a sua construção será construída no mapa com base nessa localização, 
+>a construção sempre será construído para Norte e Este do local onde clicou.  
+>
+><img src="Imagens/buide_diretion.jpg">
+
+---
+
+### MagicaVoxel
+>Você pode criar suas miniaturas com um editor de voxel como por exemplo o [MagicaVoxel](https://ephtracy.github.io/), 
+>o software é grátis e tem várias fermentas que facilitam a criação, caso esteja interessado 
+>em aprender o software recomendo esse canal [Pedro Casavecchia](https://youtube.com/playlist?list=PLyZDKlVOJ6PD-5sEIx1bo09RnIiaTxbKi)
+>
+><img src="Imagens/magica_voxel.jpg">
+>
+>Após terminar você pode exportar como .vox 
+>
+>Você deve seguir os mesmos passos para transformá-lo em uma construção, 
+>a única diferença que tamanho em voxel será o tamanho no mapa, 
+>não poderá redireciona-lo pelo site 
+
+---
+
+### Sobre 
+
+>Jogador de Mini World dês do lançamento internacional (2019). Ja partecipei de  na 
+>construção de vários mapas com milhares de downloads no jogo, grande parte deles em equipe, 
+>eu sei a quantidade de tempo que demora para criar miniaturas e esse projeto foi criado com 
+>intuito de resolver esse problema. 
+>
+>Ja desenvolvi vários outros projetos, alguns com tutoriais no meu canal.
+>
+> - Meu mod no Jogo-[Mod Vila](https://youtu.be/K5rDJA4fVP8)
+> - Tutorial-[Aprenda a criar Script no Mini World](https://youtu.be/o3kTtwPi1aY)
+> - Tutorial-[Mana Zone no Mini World Tutorial gatilho](https://youtu.be/ycN9c23HtZg)
+> - Demostração-[Attack On Titan no Mini World com gatilhos](https://youtu.be/AuoYdFmxB5o)
+> - Mapa-[Build Battle](https://youtu.be/7gamXzzcVxE)
+> - Mapa em Equipe-[Zombie Survival](https://youtu.be/I37zXGPAXyU)
+> 
+
+---
+
+### Creditos
+
+>
+> - Modelo 3d [zixisun02](https://sketchfab.com/zixisun51)
+> - Modelo voxel [Toasty](https://instagram.com/toast_tries_art?utm_medium=copy_link)
+
+
 
 
 

@@ -67,12 +67,45 @@
 >### 3-Execute o script
 >
 >Dependendo da quantidade de dados os scripts pode demorar alguns segundos 
->para finalizar a execução.
+>para finalizar a execução,requer o interpretador do python instalado.
 >
->Entre no ficheiro com nome [lua_script](lua_script.txt) copie tudo.
+>Use a sua IDE ou seguia os passos para executar pelo terminal.
+><ul>
+>  <li>Entre na pasta baixada</li>
+>  <li>Clique no endereço </li>
+>  <li>Digite cmd</li>
+>  </ul>
+>  
+>Automaticamente abrirá o endereço no terminal, para executar digite o seguinte comando 
+>
+>`````
+>python main.py
+>`````
+>
+><img src="Imagens/run_script.jpg">
+
+---
+
+>### 4-Copiar codigo gerado
+>Após terminal e execução do código entre no ficheiro com nome [lua_script](lua_script.txt) copie tudo.
 >
 >Crie um novo script no Mini World e cole tudo
+>
+><img src="Imagens/save_script.jpg">
+>Para sua construção manter no mapa ao mudar para modo criativo você deve desativar o reset 
+>do mapa nas configurações do objetivo do jogo.
+>
+><img src="Imagens/map_reset.jpg">
 
+---
+
+>### 5-Construir
+>Escolhe um local e clique, a sua construção será construída no mapa com base nessa localização, 
+>a construção sempre será construído para Norte e Este do local onde clicou.  
+>
+><img src="Imagens/buide_diretion.jpg">
+
+### MagicaVoxel
 
 
 

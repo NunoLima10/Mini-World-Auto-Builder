@@ -70,11 +70,11 @@
 >para finalizar a execução,requer o interpretador do python instalado.
 >
 >Use a sua IDE ou seguia os passos para executar pelo terminal.
-><ul>
->  <li>Entre na pasta baixada</li>
->  <li>Clique no endereço </li>
->  <li>Digite cmd</li>
->  </ul>
+>
+>  - Entre na pasta baixada
+>  - Clique no endereço 
+>  - Digite cmd
+>  
 >  
 >Automaticamente abrirá o endereço no terminal, para executar digite o seguinte comando 
 >
@@ -105,7 +105,50 @@
 >
 ><img src="Imagens/buide_diretion.jpg">
 
+---
+
 ### MagicaVoxel
+>Você pode criar suas miniaturas com um editor de voxel como por exemplo o [MagicaVoxel](https://ephtracy.github.io/), 
+>o software é grátis e tem várias fermentas que facilitam a criação, caso esteja interessado 
+>em aprender o software recomendo esse canal [Pedro Casavecchia](https://youtube.com/playlist?list=PLyZDKlVOJ6PD-5sEIx1bo09RnIiaTxbKi)
+>
+><img src="Imagens/magica_voxel.jpg">
+>
+>Após terminar você pode exportar como .vox 
+>
+>Você deve seguir os mesmos passos para transformá-lo em uma construção, 
+>a única diferença que tamanho em voxel será o tamanho no mapa, 
+>não poderá redireciona-lo pelo site 
+
+---
+
+### Sobre 
+
+>Jogador de Mini World dês do lançamento internacional (2019). Ja partecipei de  na 
+>construção de vários mapas com milhares de downloads no jogo, grande parte deles em equipe, 
+>eu sei a quantidade de tempo que demora para criar miniaturas e esse projeto foi criado com 
+>intuito de resolver esse problema. 
+>
+>Ja desenvolvi vários outros projetos, alguns com tutoriais no meu canal.
+>
+> - Meu mod no Jogo-[Mod Vila](https://youtu.be/K5rDJA4fVP8)
+> - Tutorial-[Aprenda a criar Script no Mini World](https://youtu.be/o3kTtwPi1aY)
+> - Tutorial-[Mana Zone no Mini World Tutorial gatilho](https://youtu.be/ycN9c23HtZg)
+> - Demostração-[Attack On Titan no Mini World com gatilhos](https://youtu.be/AuoYdFmxB5o)
+> - Mapa-[Build Battle](https://youtu.be/7gamXzzcVxE)
+> - Mapa em Equipe-[Zombie Survival](https://youtu.be/I37zXGPAXyU)
+> 
+
+---
+
+### Creditos
+
+>
+> - Modelo 3d [zixisun02](https://sketchfab.com/zixisun51)
+> - Modelo voxel [Toasty](https://instagram.com/toast_tries_art?utm_medium=copy_link)
+
+
+
 
 
 

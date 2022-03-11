@@ -1,33 +1,35 @@
-# Mini-World-Auto-Builder
-Transformar modelos  3d/voxel ou imagem em construções no jogo  Mini World
+
+<img src="Imagens/banner.jpg">
 
 ## Como usar
 
-### 1 Passo
+>### 1 Importação
+>
+>Escolher modelo ou imagem desejado. 
+>Converter o seu modelo para formato texto que será manipulado pelo script. 
+>
+>Use o site.
+>
+>[Voxelizer online](https://drububu.com/miscellaneous/voxelizer)
+>
+>Se o formato do teu arquivo não for compatível com o site, deve converte-los usado outros sites
+>ou programas de modelação 3d como o Blender de forma que tenha o modelo em (.obj) e a textura em 
+>(.png/.jpg). Como por exemplo a transformação de um modelo com extensão FBX para OBJ.
+>
+>Localiza no seu dispositivo o seu modelo selecione e a abra ele.
+><img src="Imagens/model.png" height=500>
+---
 
-Escolher modelo ou imagem desejado. 
 
-### 2 Passo
 
-Converter o seu modelo para formato texto que será manipulado pelo script. 
 
-Use o site.
 
-[Voxelizer online](https://drububu.com/miscellaneous/voxelizer)
-
-### 3 Passo
-
-Localiza no seu dispositivo o seu modelo selecione e a abra ele.
-
-<img src="Imagens/model.png" height=500>
 
 Caso o seu modelo tenha textura ela deve ser como uma única imagem que é o formato aceito pelo site.
 
 <img src="Imagens/textura.png" height=500>
 
-Se o formato do teu arquivo não for compatível com o site, deve converte-los usado outros sites
-ou programas de modelação 3d como o Blender de forma que tenha o modelo em (.obj) e a textura em 
-(.png/.jpg). Como por exemplo a transformação de um modelo com extensão FBX para OBJ.
+
 
 ***Qualidade vs Tamanho***
 

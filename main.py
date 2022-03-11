@@ -88,7 +88,7 @@ def  main():
         lua_script.writelines(lua_script_table)
         lua_script.writelines(lua_script_code)
     
-    print("Ready to go")
+    print("Ready to go",end="")
     
 
 if __name__=="__main__":

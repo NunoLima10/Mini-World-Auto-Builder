@@ -88,6 +88,8 @@ def  main():
         lua_script.writelines(lua_script_table)
         lua_script.writelines(lua_script_code)
     
+    print("Ready to go")
+    
 
 if __name__=="__main__":
     main()

@@ -108,8 +108,8 @@
 >Escolhe um local e clique, a sua construção será construída no mapa com base nessa localização, 
 >a construção sempre será construído para Norte(+x) e Leste(+z) do local onde clicou.  
 >Caso queira ver a construção se construindo a cada bloco você pode remover o comentário da linha onde 
->tem `--threadpool:wait()`-->`threadpool:wait()` ,porem ao ativar essa opção você não deve voltar ao modo criativo antes que sua 
->construção termine
+>tem `--threadpool:wait()`para`threadpool:wait()`, porem ao ativar essa opção você não deve voltar ao modo criativo antes que sua 
+>construção termine.
 ><img src="Imagens/buide_diretion.jpg">
 
 ---
@@ -159,33 +159,6 @@
 >
 > - Modelo 3d [zixisun02](https://sketchfab.com/zixisun51)
 > - Modelo voxel [Toasty](https://instagram.com/toast_tries_art?utm_medium=copy_link)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -5,7 +5,7 @@
 
 >### 1-Importação
 >
->Escolher o modelo ou imagem desejado,converter o seu modelo para formato texto 
+>Após baixar este repositório escolha o modelo ou imagem desejado,converter o seu modelo para formato texto 
 >que será manipulado pelo script. 
 >
 >Use o site.
@@ -70,7 +70,8 @@
 >### 3-Execute o script
 >
 >Dependendo da quantidade de dados o script pode demorar alguns segundos 
->para finalizar a execução,requer o [interpretador do python](https://www.python.org/downloads/) instalado.
+>para finalizar a execução,requer o [interpretador do python](https://www.python.org/downloads/) instalado
+>,caso tenha duvidas procure tutorias para fazer a instalação corretamente.
 >
 >Use a sua IDE ou seguia os passos para executar pelo terminal.
 >
@@ -145,14 +146,25 @@
 > - Demostração-[Attack On Titan no Mini World com gatilhos](https://youtu.be/AuoYdFmxB5o)
 > - Mapa-[Build Battle](https://youtu.be/7gamXzzcVxE)
 > - Mapa em Equipe-[Zombie Survival](https://youtu.be/I37zXGPAXyU)
-> 
 
 ---
+###  Contactos
+> Encaso de duvidas ou sugestões entre em contato
+> - [Email](contato.playcraft@gmail.com)
+> - [Servidor no discord](https://discord.gg/E4bS997d76)
+
+
+###  Ultima atualização 0.0.2
+> - Modelo voxel data atualizado
+> - Paleta de cores para MagicaVoxel
+> - Mensagens de aviso adicionadas 
+> 
+
 
 ### Em Breve
-> - Paleta de cores no MagicaVoxel com todos os blocos de concreto aceites pelo script total de 256 
 > - Rotação do modelo no mapa
 > - Pré-visualização  do tamanho no mapa
+> 
 
 ### Créditos
 

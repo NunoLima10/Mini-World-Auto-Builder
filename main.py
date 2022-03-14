@@ -1,6 +1,6 @@
 __author__="Nuno Lima"
 __copyright__="Copyright 2022 Nuno Lima"
-__version__="0.0.1"
+__version__="0.0.2"
 __maintainer__="Nuno Lima"
 __email__="contato.playcraft@gmail.com"
 __status__="Production"
@@ -79,7 +79,8 @@ def generate_lua_table(data):
     
     return lua_table.strip(',') +'}' 
 
-def  main():  
+def  main():
+    print("Working on it...")  
     voxel_data=read_txt_file(data_path)
     lua_script_code=read_txt_file(base_code_path)
     lua_script_table=generate_lua_table(voxel_data)

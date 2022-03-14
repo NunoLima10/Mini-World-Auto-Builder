@@ -1,7 +1,11 @@
+
 bulgind=false
+
 function build(e)
     
     if not bulgind then
+        
+        Chat:sendSystemMsg("#YConstrution started",0)
     
         bulgind=true
         local x=e.x
@@ -16,7 +20,10 @@ function build(e)
          --threadpool:wait(0.0000000000001)
          Block:setBlockAll(x+data[i][x_face],y+data[i][y_face],z+data[i][z_face],data[i][4],data[i][5])
        end
+       Chat:sendSystemMsg("#GConstrution completed",0)
+       return
     end
+    Chat:sendSystemMsg("#RConstrution already done",0)
 end
 
 ScriptSupportEvent:registerEvent([=[Player.ClickBlock]=],build)

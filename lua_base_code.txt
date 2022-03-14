@@ -6,6 +6,7 @@ function build(e)
     if not bulgind then
         
         Chat:sendSystemMsg("#YConstrution started",0)
+        threadpool:wait(0.5)
     
         bulgind=true
         local x=e.x

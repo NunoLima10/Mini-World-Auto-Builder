@@ -107,7 +107,7 @@
 >### 5-Construir
 >
 >Escolhe um local e clique, a sua construção será construída no mapa com base nessa localização, 
->a construção sempre será construído para Norte(+x) e Leste(+z) do local onde clicou.  
+>a construção sempre será construído para Norte(+Z) e Leste(-X) do local onde clicou.  
 >Caso queira ver a construção se construindo a cada bloco você pode remover o comentário da linha onde 
 >tem `--threadpool:wait()`para`threadpool:wait()`, porem ao ativar essa opção você não deve voltar ao modo criativo antes que sua 
 >construção termine.
@@ -150,7 +150,7 @@
 ---
 ###  Contactos
 > Encaso de duvidas ou sugestões entre em contato
-> - [Email](contato.playcraft@gmail.com)
+> - Email-contato.playcraft@gmail.com)
 > - [Servidor no discord](https://discord.gg/E4bS997d76)
 
 

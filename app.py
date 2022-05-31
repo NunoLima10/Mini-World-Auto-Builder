@@ -1,24 +1,25 @@
 
 import PySimpleGUI as sg
 
+from layout import PALETA,FONT
+
+
 class App:
-    def __init__(self,title: str ,size: tuple, icon:str = None) -> None:
+    def __init__(self,title: str, layout: list, size: tuple, icon:str = None) -> None:
         self.title = title
         self.size = size 
         self.icon = icon
-        self.font = "Nexa 12 bold"
+        self.font = FONT
 
-        self.layout = self.build_layout()
+        self.layout = layout
         self.create_window()
         
 
-    def build_layout(self)-> list:
-        layout = [[sg.Push(),sg.Text("Hello",font = self.font ),sg.Push()]]
-
-        return layout
+    
 
     def create_window(self)->None:
         self.window = sg.Window(self.title, self.layout, size = self.size, icon = self.icon)
+        self.window.BackgroundColor = PALETA["Azul1"]
 
 
     def run(self)-> None:

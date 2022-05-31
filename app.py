@@ -1,25 +1,22 @@
 
 import PySimpleGUI as sg
 
-from layout import PALETA,FONT
+from layout import build_layout,PALETTE,FONT
 
 
 class App:
-    def __init__(self,title: str, layout: list, size: tuple, icon:str = None) -> None:
+    def __init__(self,title: str, size: tuple, icon:str = None,lang:str = "pt") -> None:
         self.title = title
         self.size = size 
         self.icon = icon
         self.font = FONT
 
-        self.layout = layout
+        self.layout = build_layout(lang)
         self.create_window()
         
-
-    
-
     def create_window(self)->None:
         self.window = sg.Window(self.title, self.layout, size = self.size, icon = self.icon)
-        self.window.BackgroundColor = PALETA["Azul1"]
+        self.window.BackgroundColor = PALETTE["Azul1"]
 
 
     def run(self)-> None:

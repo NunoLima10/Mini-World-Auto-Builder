@@ -1,5 +1,6 @@
+from math import dist
 import PySimpleGUI as sg
-from langues import langues
+
 
 PALETTE ={
     "Azul1":"#C7DDEC",
@@ -10,13 +11,8 @@ PALETTE ={
 FONT = "Nexa 10 bold"
 
 
-def build_layout(lang="defaut_lang" )-> list:
-    if not lang in langues:
-        lang = "defaut_lang"
+def build_layout(language_data:dict , available_languages:dict)-> list:
     
-    language = langues[lang]
-        
-
     logo_box = [
         sg.Col(
             layout = [[sg.Image("text_logo.png", background_color=PALETTE["Azul1"])]],
@@ -27,7 +23,7 @@ def build_layout(lang="defaut_lang" )-> list:
             )
         ]
 
-    list_box =[
+    list_box = [
         sg.Listbox(
             values = ["hello"],
             expand_x = True,
@@ -44,7 +40,7 @@ def build_layout(lang="defaut_lang" )-> list:
     status_text = [
         sg.Push(PALETTE["Azul1"]),
         sg.Text(
-            text = language["Status"],
+            text = language_data["Status"],
             background_color = PALETTE["Azul1"],
             font = FONT,
             text_color = PALETTE["Azul4"],
@@ -57,7 +53,7 @@ def build_layout(lang="defaut_lang" )-> list:
     action_box = [
         sg.Push(PALETTE["Azul1"]),
         sg.Button(
-            button_text = language["Run"],
+            button_text = language_data["Run"],
             button_color = (PALETTE["Azul4"], PALETTE["Azul3"]),
             border_width = 0,
             font = FONT, 
@@ -65,7 +61,7 @@ def build_layout(lang="defaut_lang" )-> list:
             key = "-RUN-"    
         ),
         sg.Button(
-            button_text = language["Find File"],
+            button_text = language_data["Find File"],
             button_color = (PALETTE["Azul4"], PALETTE["Azul3"]),
             border_width = 0,
             font = FONT,  
@@ -77,17 +73,27 @@ def build_layout(lang="defaut_lang" )-> list:
 
 
     menu_def = [
-        [language["Help"],
+        [language_data["File"],
             [
-            language["Language"],
-            language["Tutorial"]
+            language_data["Find File"],
+            "---",
+            language_data["Exit"],
+            ]
+
+        ],
+
+        [language_data["Help"],
+            [
+            [language_data["Language"],[ key for key in  available_languages.keys()]],
+            language_data["Tutorial"],
+            language_data["Online Voxelizer"]
             ]
         ],
-        [language["About"],
+        [language_data["About"],
             [
-            language["YouTube Channel"],
-            language["Version"],
-            language["Repository"]
+            language_data["YouTube Channel"],
+            language_data["Repository"],
+            language_data["Version"]
             ]
         ]
     ]

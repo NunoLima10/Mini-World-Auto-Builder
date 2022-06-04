@@ -41,12 +41,13 @@ class App:
     def create_window(self)->None:
         window_layout = self.layout.build_layout()
         self.window = sg.Window(self.title, window_layout, size = self.size, icon = self.icon)
-        self.window.BackgroundColor = self.layout.palette["Azul1"]
+        self.window.BackgroundColor = self.layout.palette["Color1"]
 
 
 
     def convert_voxel_data(self)-> None:
-        print(self.values["-LISTBOX-"])
+        #self.values["-LISTBOX-"]
+        print("convert")
 
 
     def open_find_file(self)-> None:

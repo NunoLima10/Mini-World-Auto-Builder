@@ -9,10 +9,10 @@ class Layout:
         self.font = "Nexa 10 bold"
     
         self.palette =   {
-        "Azul1":"#C7DDEC",
-        "Azul2":"#B3D2E7",
-        "Azul3":"#98BED9",
-        "Azul4":"#485B78",
+        "Color1":"#C7DDEC",
+        "Color2":"#B3D2E7",
+        "Color3":"#98BED9",
+        "Color4":"#485B78",
         }
 
 
@@ -20,11 +20,11 @@ class Layout:
     
         logo_box = [
             sg.Col(
-                layout = [[sg.Image("text_logo.png", background_color=self.palette["Azul1"])]],
+                layout = [[sg.Image('assets\\text_logo.png', background_color=self.palette["Color1"])]],
                 element_justification = "c",
                 vertical_alignment = "c",
                 expand_x = True,
-                background_color = self.palette["Azul1"]
+                background_color = self.palette["Color1"]
                 )
             ]
 
@@ -34,8 +34,8 @@ class Layout:
                 expand_x = True,
                 expand_y = True,
                 font = self.font, 
-                text_color = self.palette["Azul4"],
-                background_color = self.palette["Azul2"],
+                text_color = self.palette["Color4"],
+                background_color = self.palette["Color2"],
                 no_scrollbar = True,
                 key = "-LISTBOX-"
                     
@@ -43,23 +43,23 @@ class Layout:
                 ]
             
         status_text = [
-            sg.Push(self.palette["Azul1"]),
+            sg.Push(self.palette["Color1"]),
             sg.Text(
                 text = self.language_data["Status"],
-                background_color = self.palette["Azul1"],
+                background_color = self.palette["Color1"],
                 font = self.font,
-                text_color = self.palette["Azul4"],
+                text_color = self.palette["Color4"],
                 size = (None,2),
                 key = "-STATUS-"
             ),
-            sg.Push(self.palette["Azul1"])
+            sg.Push(self.palette["Color1"])
             ]
 
         action_box = [
-            sg.Push(self.palette["Azul1"]),
+            sg.Push(self.palette["Color1"]),
             sg.Button(
                 button_text = self.language_data["Run"],
-                button_color = (self.palette["Azul4"], self.palette["Azul3"]),
+                button_color = (self.palette["Color4"], self.palette["Color3"]),
                 border_width = 0,
                 font = self.font, 
                 size = (25,2),
@@ -67,13 +67,13 @@ class Layout:
             ),
             sg.Button(
                 button_text = self.language_data["Find File"],
-                button_color = (self.palette["Azul4"], self.palette["Azul3"]),
+                button_color = (self.palette["Color4"], self.palette["Color3"]),
                 border_width = 0,
                 font = self.font,  
                 size = (25,2),
             key = "-FINDFILE-"     
             ),
-            sg.Push(self.palette["Azul1"])
+            sg.Push(self.palette["Color1"])
             ]
 
 
@@ -104,16 +104,13 @@ class Layout:
         ]
         menu = sg.Menu(
             menu_definition = menu_def,
-            # background_color = self.palette["Azul1"],
-            # font = FONT,
-            # text_color = self.palette["Azul4"],
             pad=(10,10))
 
         content_box = sg.Column(
             [list_box, status_text, action_box],
             expand_x = True,
             expand_y = True,
-            background_color=self.palette["Azul1"]
+            background_color=self.palette["Color1"]
             )
 
         return [[menu,logo_box,content_box]]

@@ -1,9 +1,10 @@
-from optparse import Values
+
 import PySimpleGUI as sg
 
 from layout import Layout
 from langues import Language
 from converter_manager import ConverterManager
+from open_url import open_url
 
 class App:
     def __init__(self,title: str, size: tuple, icon:str,language:str) -> None:
@@ -45,24 +46,26 @@ class App:
 
 
 
-    def convert_voxel_data(self)-> None:
+    def convert_voxel_data(self,event)-> None:
         #self.values["-LISTBOX-"]
         print("convert")
 
 
-    def open_find_file(self)-> None:
+    def open_find_file(self,event)-> None:
         file_types = self.converter_manager.file_type
         file_path = sg.popup_get_file("File",no_window=True ,file_types=file_types,icon=self.icon)
         new_file_labels = self.converter_manager.add_file(file_path)
 
+       
         self.window["-LISTBOX-"].update(values=new_file_labels)
         
         
     
-    def open_url(self)-> None:
-        print("open_url")
+    def open_url(self,event)-> None:
+        open_url(event)
+        
     
-    def open_version_popup(self)-> None:
+    def open_version_popup(self,event)-> None:
         print("open_version_popup")
     
 
@@ -83,12 +86,9 @@ class App:
            
 
             if event in self.events:
-                self.events[event]
-
-            if event in self.events:
-                self.events[event]()
+                event_function = self.events[event]
+                event_function(event)
                
-            
             if event in self.languages_labels:
                 self.change_language(event)
 

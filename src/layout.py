@@ -33,7 +33,7 @@ class Layout:
                 values = [],
                 expand_x = True,
                 expand_y = True,
-                font = self.font, 
+                font = "Nexa 15 bold", 
                 text_color = self.palette["Color4"],
                 background_color = self.palette["Color2"],
                 no_scrollbar = True,

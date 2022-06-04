@@ -54,7 +54,9 @@ class Language:
         "About":"Sobre",
         "YouTube Channel":"Canal no YouTube",
         "Version":"Versão",
-        "Repository":"Repositorio"
+        "Repository":"Repositorio",
+        "Converted":"Convertido",
+        "Unconverted":"Não Convertido"
     }
     en = {
         "Label":"English",
@@ -71,7 +73,9 @@ class Language:
         "About":"About",
         "YouTube Channel":"YouTube Channel",
         "Version":"Version",
-        "Repository":"Repository"
+        "Repository":"Repository",
+        "Converted":"Converted",
+        "Unconverted":"Unconverted"
     }
 
 

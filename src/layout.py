@@ -37,7 +37,9 @@ class Layout:
                 text_color = self.palette["Color4"],
                 background_color = self.palette["Color2"],
                 no_scrollbar = True,
+                enable_events  = True,
                 key = "-LISTBOX-"
+                
                     
                 )
                 ]
@@ -81,6 +83,7 @@ class Layout:
             [self.language_data["File"],
                 [
                 self.language_data["Find File"],
+                self.language_data["Output Folder"],
                 "---",
                 self.language_data["Exit"],
                 ]

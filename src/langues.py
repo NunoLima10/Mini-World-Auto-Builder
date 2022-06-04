@@ -10,7 +10,7 @@ class Language:
         }
         
         self.language_data = self.langues_data[defaut_language]
-        if self.language_id in self.language_data:
+        if self.language_id in self.langues_data:
             self.language_data = self.langues_data[self.language_id] 
     
     
@@ -29,9 +29,6 @@ class Language:
         self.language_data = self.langues_data[language_id] 
         return self.language_data
         
-
-
-
     def find_language_by_label(self,language_Label:str)-> str:
         for language in self.langues_data:
             if self.langues_data[language]["Label"] == language_Label:
@@ -45,6 +42,7 @@ class Language:
         "Status":"Estado",
         "Run":"Executar",
         "Find File":"Localizar Arquivo",
+        "Output Folder":"Salvar na pasta",
         "File":"Ficheiro",
         "Exit":"Sair",
         "Help":"Ajuda",
@@ -64,6 +62,7 @@ class Language:
         "Status":"Status",
         "Run":"Run",
         "Find File":"Find File",
+        "Output Folder":"Output Folder",
         "File":"File",
         "Exit":"Exit",
         "Help":"Help",

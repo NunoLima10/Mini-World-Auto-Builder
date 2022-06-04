@@ -4,10 +4,10 @@ import PySimpleGUI as sg
 from layout import Layout
 from langues import Language
 from converter_manager import ConverterManager
-from open_url import open_url
+from open_url import open_page_url
 
 class App:
-    def __init__(self,title: str, size: tuple, icon:str,language:str) -> None:
+    def __init__(self,title: str, size: tuple, icon:str, language:str) -> None:
         self.title = title
         self.size = size 
         self.icon = icon
@@ -19,50 +19,49 @@ class App:
         self.layout = Layout(self.language_data, self.languages_labels)
         self.font = self.layout.font
 
-
-        self.converter_manager = ConverterManager()
+        self.converter_manager = ConverterManager(self.icon)
 
         self.create_window()
 
-
-
         self.events = {
             "-RUN-":self.convert_voxel_data,
-            "-FINDFILE-":self.open_find_file,
-            self.language_data["Find File"]:self.open_find_file,
-            self.language_data["Tutorial"]:self.open_url,
-            self.language_data["Online Voxelizer"]:self.open_url,
-            self.language_data["YouTube Channel"]:self.open_url,
-            self.language_data["Repository"]:self.open_url,
-            self.language_data["Version"]:self.open_version_popup,
+            "-FINDFILE-":self.open_get_file,
+            "-LISTBOX-" :self.set_file_status,
+            self.language_data["Find File"]: self.open_get_file,
+            self.language_data["Output Folder"]: self.change_output_folder,
+            self.language_data["Tutorial"]: self.open_page,
+            self.language_data["Online Voxelizer"]: self.open_page,
+            self.language_data["YouTube Channel"]: self.open_page,
+            self.language_data["Repository"]: self.open_page,
+            self.language_data["Version"]: self.open_version_popup,
         }
 
-        
-        
     def create_window(self)->None:
         window_layout = self.layout.build_layout()
-        self.window = sg.Window(self.title, window_layout, size = self.size, icon = self.icon)
+        self.window = sg.Window(self.title, window_layout, size=self.size, icon=self.icon)
         self.window.BackgroundColor = self.layout.palette["Color1"]
 
+    def open_get_file(self, event)-> None:
+        self.converter_manager.get_new_file()
+        self.window["-LISTBOX-"].update(values=self.converter_manager.file_labels)
 
+    def change_output_folder(self, event)-> None:
+         self.converter_manager.set_output_folder()
+
+    def set_file_status(self,event)-> None:
+        
+        print(self.values["-LISTBOX-"])
 
     def convert_voxel_data(self,event)-> None:
         #self.values["-LISTBOX-"]
         print("convert")
 
 
-    def open_find_file(self,event)-> None:
-        file_types = self.converter_manager.file_type
-        file_path = sg.popup_get_file("File",no_window=True ,file_types=file_types,icon=self.icon)
-        new_file_labels = self.converter_manager.add_file(file_path)
-
-       
-        self.window["-LISTBOX-"].update(values=new_file_labels)
-        
+  
         
     
-    def open_url(self,event)-> None:
-        open_url(event)
+    def open_page(self,event)-> None:
+        open_page_url(event)
         
     
     def open_version_popup(self,event)-> None:
@@ -82,8 +81,6 @@ class App:
 
             if event == sg.WIN_CLOSED or event== self.language_data["Exit"] :
                 break
-
-           
 
             if event in self.events:
                 event_function = self.events[event]

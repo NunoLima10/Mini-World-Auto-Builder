@@ -8,5 +8,5 @@ urls = {
 }
 
 
-def open_url(url)-> None:
+def open_page_url(url)-> None:
     webbrowser.open_new(urls[url])

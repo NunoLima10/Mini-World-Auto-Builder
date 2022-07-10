@@ -14,7 +14,8 @@ class Layout:
         "Color3":"#98BED9",
         "Color4":"#485B78",
         }
-
+    def get_font (self)->None:
+        return self.font 
 
     def build_layout(self)-> list:
     
@@ -51,7 +52,7 @@ class Layout:
                 background_color = self.palette["Color1"],
                 font = self.font,
                 text_color = self.palette["Color4"],
-                size = (None,2),
+                size = (None,1),
                 key = "-STATUS-"
             ),
             sg.Push(self.palette["Color1"])

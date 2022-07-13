@@ -1,9 +1,9 @@
 
 import pathlib
-
 import PySimpleGUI as sg
 
 from file_data import FileData
+from voxel_converter import VoxelConverter
 
 class ConverterManager:
     def __init__(self,icon:str) -> None:
@@ -13,14 +13,14 @@ class ConverterManager:
         self.file_type = [("Voxel Data Files","*vox")]
 
         self.files_data = []
-        self.selectede_file_name = ""
+        self.selected_file = None
 
         self.initial_folder = pathlib.Path.cwd()
         self.output_folder = self.initial_folder
 
     def find_file_by_name(self, name:str)-> FileData:
         for file_data in self.files_data:
-            if file_data.name == name:
+            if file_data.full_name == name:
                 return file_data
         return None #add not find exeption
     
@@ -52,6 +52,20 @@ class ConverterManager:
     def get_file_status(self, file_name:str)-> str:
         voxeldata = self.find_file_by_name(file_name)
         return voxeldata.get_status()
+
+    def set_file_for_conversion(self, file_name:str)-> None:
+        self.selected_file = self.find_file_by_name(file_name)
+
+    def convert_file(self)-> None:
+        if self.selected_file is None: return
+
+        file_extension = self.selected_file.get_extension()
+        try:
+            if file_extension == "vox":
+                file_converted = VoxelConverter(self.selected_file,self.output_folder)
+                
+        except FileNotFoundError:
+            print("ficehiro não encontrado")
 
 
   

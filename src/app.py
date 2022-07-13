@@ -59,6 +59,9 @@ class App:
     def convert_voxel_data(self, **kwarg)-> None:
         if len(self.values["-LISTBOX-"]) == 0: return
         file_name = self.values["-LISTBOX-"][0]
+        self.converter_manager.set_file_for_conversion(file_name)
+        print(self.converter_manager.selected_file.get_file_path)
+        self.window.perform_long_operation(self.converter_manager.convert_file,"--END--")
         
     def open_page(self,**kwarg)-> None:
         for key,value in self.language_data.items():

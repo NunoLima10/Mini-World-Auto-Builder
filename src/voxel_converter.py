@@ -1,13 +1,89 @@
-from pyvox.parser import VoxParser
+import pathlib
 
+from file_data import FileData
+from utils import FileNotFoundException,color_distance,block_color_data
+from voxel_parser import VoxParser,VoxPaserException
+
+BASE_CODE_PATH = pathlib.Path('.\\assets\\lua_base_code.txt')
 class VoxelConverter:
-   def __init__(self, path:str, name:str, file_extension:str) -> None:
-        self.file_path = path
-        self.name = name
-        self.file_extension = file_extension
-        self.file_data = VoxParser(self.file_path)
+    def __init__(self, file_data: FileData, output_folder: pathlib.Path) -> None:
+        self.file_data = file_data
+        self. output_folder =  output_folder
+        self.load_voxel_data()
+        self.convert_file()
+    
+
+    def load_voxel_data(self) -> None:
+        path = pathlib.Path(self.file_data.get_file_path())
+        if not path.is_file(): 
+            raise FileNotFoundException("File not found")    
+        try:
+            self.voxel_data = VoxParser(self.file_data.get_file_path())
+        except Exception:
+            raise VoxPaserException("Voxel format not supported")
+
+    def generate_position_table(self) -> str:
+        voxels = self.voxel_data.voxels
+        position_table = 'positions={'
+     
+        for voxel in voxels:
+            position_line = '{'+f'{voxel.x},{voxel.y},{voxel.z},{voxel.c}'+'}'
+            position_table = position_table + position_line + ','
+
+        return position_table.strip(',') + '}'
+
+    def get_block_list(self) -> list[tuple]:
+        color_data = self.voxel_data.palette
+        block_list = []
+        processed_colors = set()
+
+        for color in color_data:
+            if color not in processed_colors:
+                block = block_color_data[0]
+                mim_delta_E = color_distance((color.r,color.g,color.b),(block.r,block.g,block.b))
+
+                for block in block_color_data:
+                    delta_E = color_distance((color.r,color.g,color.b),(block.r,block.g,block.b)) 
+
+                    if mim_delta_E >= delta_E:
+                        mim_delta_E = delta_E
+                        mim_delta_E_block = block
+
+                block_list.append(mim_delta_E_block)
+            
+            processed_colors.add(color) 
+        return block_list
+
+    def generate_block_table(self) -> str:
+        block_list = self.get_block_list()
+        blocks_table = "blocks{"
+
+        for block in block_list:
+            block_line = '{'+f'{block.block_id},{block.color_data}'+'}'
+            blocks_table = blocks_table + block_line + ','
+
+        return blocks_table.strip(',') + '}'
+    def get_postion_label(voxel:tuple)->str:
+        return f"{voxel.x},{voxel.y},{voxel.z}"
+
+    def get_color_info(self, voxel:tuple)->tuple:
+        return self.voxel_data.palette[voxel.c]
+
+    def convert_file(self)-> bool:
+        postions = self.generate_position_table()
+        blocks = self.generate_block_table()
+        base_code = BASE_CODE_PATH.read_text()
+
+        lua_script =  f"{postions} {blocks} {base_code}"
+
+        file_name = self.file_data.get_name() + ".txt"
+
+        print(file_name)
+
+        path = self.output_folder.joinpath(file_name)
+        path.write_text(lua_script)
+        # self.converted_file_path
         
-        
-        self.converted = False
-        self.converted_file_path = ""
-        
+       
+
+

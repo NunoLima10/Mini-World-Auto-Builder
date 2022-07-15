@@ -1,26 +1,24 @@
 import pathlib
+from time import sleep
 
 from file_data import FileData
 from utils import FileNotFoundException,color_distance,block_color_data
-from voxel_parser import VoxParser,VoxPaserException
+from voxel_parser import VoxParser
 
 BASE_CODE_PATH = pathlib.Path('.\\assets\\lua_base_code.txt')
 class VoxelConverter:
     def __init__(self, file_data: FileData, output_folder: pathlib.Path) -> None:
         self.file_data = file_data
-        self. output_folder =  output_folder
-        self.load_voxel_data()
-        self.convert_file()
-    
-
+        self.output_folder =  output_folder
+      
+        
     def load_voxel_data(self) -> None:
-        path = pathlib.Path(self.file_data.get_file_path())
-        if not path.is_file(): 
+        if not self.file_data.file_exists(): 
             raise FileNotFoundException("File not found")    
-        try:
-            self.voxel_data = VoxParser(self.file_data.get_file_path())
-        except Exception:
-            raise VoxPaserException("Voxel format not supported")
+
+        self.voxel_data = VoxParser(self.file_data.file_path)
+        
+           
 
     def generate_position_table(self) -> str:
         voxels = self.voxel_data.voxels
@@ -69,20 +67,23 @@ class VoxelConverter:
     def get_color_info(self, voxel:tuple)->tuple:
         return self.voxel_data.palette[voxel.c]
 
-    def convert_file(self)-> bool:
+    def convert_file(self) -> pathlib.Path:
+
+        self.load_voxel_data()
+
         postions = self.generate_position_table()
         blocks = self.generate_block_table()
         base_code = BASE_CODE_PATH.read_text()
 
-        lua_script =  f"{postions} {blocks} {base_code}"
+        lua_script =  f"{postions}\n {blocks}\n {base_code}"
 
         file_name = self.file_data.get_name() + ".txt"
 
-        print(file_name)
-
         path = self.output_folder.joinpath(file_name)
+        sleep(10)
         path.write_text(lua_script)
-        # self.converted_file_path
+        
+        return path
         
        
 

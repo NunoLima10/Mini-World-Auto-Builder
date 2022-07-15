@@ -1,5 +1,6 @@
 
 import PySimpleGUI as sg
+import math 
 
 from layout import Layout
 from langues import Language
@@ -7,7 +8,7 @@ from converter_manager import ConverterManager
 from open_url import open_page_url
 
 class App:
-    def __init__(self, title: str, size: tuple, icon:str, language:str) -> None:
+    def __init__(self, title: str, size: tuple, icon: str, language: str) -> None:
         self.title = title
         self.size = size 
         self.icon = icon
@@ -15,8 +16,10 @@ class App:
         self.language = Language(language)
         self.language_data = self.language.get_language_data()
         self.languages_labels = self.language.get_languages_labels()
-   
 
+        self.animation_frame = 0
+        self.converting = False
+        
         self.layout = Layout(self.language_data, self.languages_labels)
         self.font = self.layout.get_font()
 
@@ -37,12 +40,12 @@ class App:
             self.language_data["Version"]: self.open_version_popup,
         }
 
-    def create_window(self)->None:
+    def create_window(self) -> None:
         window_layout = self.layout.build_layout()
         self.window = sg.Window(self.title, window_layout, size=self.size, icon=self.icon)
         self.window.BackgroundColor = self.layout.palette["Color1"]
 
-    def open_get_file(self, **kwarg)-> None:
+    def open_get_file(self, **kwarg) -> None:
         self.converter_manager.get_new_file()
         self.window["-LISTBOX-"].update(values=self.converter_manager.get_files_lables())
 
@@ -52,18 +55,31 @@ class App:
     def set_file_status(self, **kwarg)-> None:
         if len(self.values["-LISTBOX-"]) == 0: return
         file_name = self.values["-LISTBOX-"][0]
-    
-        status = self.converter_manager.get_file_status(file_name)
-        self.window["-STATUS-"].Update(self.language_data[status])
+        animation = ["",".","..","..."]
 
-    def convert_voxel_data(self, **kwarg)-> None:
+        status = self.converter_manager.get_file_status(file_name)
+       
+
+        if status == "Converting":
+            frame = math.floor(self.animation_frame % 4)
+            self.window["-STATUS-"].Update(self.language_data["Converting"] + animation[frame])
+            self.animation_frame += 0.1
+        else:
+            status_label = f'{file_name} >> {self.language_data[status]}'
+            self.window["-STATUS-"].Update(status_label)
+
+    def convert_voxel_data(self, **kwarg) -> None:
+
         if len(self.values["-LISTBOX-"]) == 0: return
+
         file_name = self.values["-LISTBOX-"][0]
+
         self.converter_manager.set_file_for_conversion(file_name)
-        print(self.converter_manager.selected_file.get_file_path)
-        self.window.perform_long_operation(self.converter_manager.convert_file,"--END--")
+
+        self.window.perform_long_operation(self.converter_manager.convert_file,"--CONVERTION_END--")
+        self.converting = True
         
-    def open_page(self,**kwarg)-> None:
+    def open_page(self, **kwarg) -> None:
         for key,value in self.language_data.items():
             if kwarg["event"] ==  value:
                url_key = key 
@@ -75,23 +91,27 @@ class App:
         print("open_version_popup")
     
 
-    def change_language(self,language_Label:str)-> None:
-            self.language_data = self.language.change_language(language_Label)
-            self.layout = Layout(self.language_data,self.languages_labels)
+    def change_language(self, language_Label: str) -> None:
 
-            self.close()
-            self.create_window()
+        if self.converting: return
 
-            _,self.values = self.window.read(timeout=20)
-            self.window["-LISTBOX-"].update(values=self.converter_manager.get_files_lables())
-            self.window["-STATUS-"].update(self.language_data["Status"])
+        self.language_data = self.language.change_language(language_Label)
+        self.layout = Layout(self.language_data, self.languages_labels)
+
+        self.close()
+        self.create_window()
+
+        _, self.values = self.window.read(timeout=20)
+        self.window["-LISTBOX-"].update(values=self.converter_manager.get_files_lables())
+        self.window["-STATUS-"].update(self.language_data["Status"])
             
 
     def run(self)-> None:
+        
         while True:
-            app_event,self.values = self.window.read(timeout=20)
+            app_event, self.values = self.window.read(timeout=20)
 
-            if app_event == sg.WIN_CLOSED or app_event == self.language_data["Exit"] :
+            if app_event == sg.WIN_CLOSED or app_event == self.language_data["Exit"]:
                 break
                
             if app_event in self.events:
@@ -100,10 +120,22 @@ class App:
                 
             if app_event in self.languages_labels:
                 self.change_language(app_event)
+
+            if self.converting:
+                self.set_file_status()
+            
+            if app_event == "--CONVERTION_END--":
+                self.converter_manager.finished_conversation()
+                self.set_file_status()
+                self.converting = False
+                
             
             
+
                 
 
+                
+            
     def close(self)-> None:
         self.window.close()
 

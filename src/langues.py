@@ -54,7 +54,9 @@ class Language:
         "Version":"Versão",
         "Repository":"Repositorio",
         "Converted":"Convertido",
-        "Unconverted":"Não Convertido"
+        "Unconverted":"Não Convertido",
+        "Not supported":"Não suportado",
+        "Converting":"Convertendo"
     }
     en = {
         "Label":"English",
@@ -74,7 +76,9 @@ class Language:
         "Version":"Version",
         "Repository":"Repository",
         "Converted":"Converted",
-        "Unconverted":"Unconverted"
+        "Unconverted":"Unconverted",
+        "Not supported":"Not supported",
+        "Converting":"Converting"
     }
 
 

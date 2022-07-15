@@ -7,7 +7,7 @@ __maintainer__ = "Nuno Lima"
 __email__ = "contato.playcraft@gmail.com"
 __status__ = "Production"
 
-def main()-> None:
+def main() -> None:
     
     title = "MiniWorld-AutoBuilder"
     size = (500,500)

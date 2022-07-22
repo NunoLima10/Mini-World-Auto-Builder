@@ -5,13 +5,16 @@ import math
 from layout import Layout
 from langues import Language
 from converter_manager import ConverterManager
+from pallete import Pallete
 from open_url import open_page_url
+from popup_controller import Popup
 
 class App:
     def __init__(self, title: str, size: tuple, icon: str, language: str) -> None:
         self.title = title
         self.size = size 
         self.icon = icon
+
 
         self.language = Language(language)
         self.language_data = self.language.get_language_data()
@@ -23,7 +26,10 @@ class App:
         self.layout = Layout(self.language_data, self.languages_labels)
         self.font = self.layout.get_font()
 
-        self.converter_manager = ConverterManager(self.icon)
+        self.pallete = Pallete(icon, pallete_path='.\\assets\\Mini_World_color_pallete.png')
+        self.converter_manager = ConverterManager(self.icon, self.pallete)
+
+        self.popup = Popup(self.icon,(400,150))
 
         self.create_window()
 
@@ -38,12 +44,13 @@ class App:
             self.language_data["YouTube Channel"]: self.open_page,
             self.language_data["Repository"]: self.open_page,
             self.language_data["Version"]: self.open_version_popup,
+            self.language_data["Select Palette"]: self.set_defaut_pallete,
         }
 
     def create_window(self) -> None:
         window_layout = self.layout.build_layout()
-        self.window = sg.Window(self.title, window_layout, size=self.size, icon=self.icon)
-        self.window.BackgroundColor = self.layout.palette["Color1"]
+        self.window = sg.Window(self.title, window_layout, size=self.size, icon=self.icon, background_color=self.layout.palette["Color1"])
+     
 
     def open_get_file(self, **kwarg) -> None:
         self.converter_manager.get_new_file()
@@ -51,6 +58,7 @@ class App:
 
     def change_output_folder(self, **kwarg)-> None:
          self.converter_manager.set_output_folder()
+
 
     def set_file_status(self, **kwarg)-> None:
         if len(self.values["-LISTBOX-"]) == 0: return
@@ -75,9 +83,10 @@ class App:
         file_name = self.values["-LISTBOX-"][0]
 
         self.converter_manager.set_file_for_conversion(file_name)
-
+        
         self.window.perform_long_operation(self.converter_manager.convert_file,"--CONVERTION_END--")
         self.converting = True
+       
         
     def open_page(self, **kwarg) -> None:
         for key,value in self.language_data.items():
@@ -87,6 +96,10 @@ class App:
         open_page_url(url_key)
         
     
+    def set_defaut_pallete(self, **kwarg) -> None: 
+       
+        self.converter_manager.pallete = self.pallete
+
     def open_version_popup(self,event)-> None:
         print("open_version_popup")
     
@@ -125,17 +138,17 @@ class App:
                 self.set_file_status()
             
             if app_event == "--CONVERTION_END--":
-                self.converter_manager.finished_conversation()
-                self.set_file_status()
+
+                conversion_status = self.values["--CONVERTION_END--"]
                 self.converting = False
-                
-            
-            
 
-                
-
-                
-            
+                if conversion_status == "ok":
+                    self.converter_manager.finished_conversation()
+                    self.set_file_status()
+                else:
+                    self.popup.show("",self.language_data[conversion_status],"ok")
+               
+                         
     def close(self)-> None:
         self.window.close()
 

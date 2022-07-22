@@ -45,6 +45,8 @@ class Language:
         "Output Folder":"Salvar na pasta",
         "File":"Ficheiro",
         "Exit":"Sair",
+        "Palette":"Paleta",
+        "Select Palette":"Selecionar Paleta",
         "Help":"Ajuda",
         "Language":"Idioma",
         "Tutorial":"Tutorial",
@@ -56,7 +58,12 @@ class Language:
         "Converted":"Convertido",
         "Unconverted":"Não Convertido",
         "Not supported":"Não suportado",
-        "Converting":"Convertendo"
+        "Converting":"Convertendo",
+        
+        "VoxPaserException":"Ocorreu um erro na converção o ficheiro não é suportado",
+        "FileNotFoundException":"O ficheiro não foi encontrado",
+        "PalletSizeException":"O tamanho da paleta não corresponde a tamanho padrão (256,1)",
+        "VoxAsNoPalleteException":"O arquivo vox não tem informações de cor e não tem uma paleta alternativa selecionado"
     }
     en = {
         "Label":"English",
@@ -67,6 +74,8 @@ class Language:
         "Output Folder":"Output Folder",
         "File":"File",
         "Exit":"Exit",
+        "Palette":"Palette",
+        "Select Palette":"Select Palette",
         "Help":"Help",
         "Language": "Language",
         "Tutorial":"Tutorial",

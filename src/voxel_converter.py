@@ -1,15 +1,18 @@
 import pathlib
-from time import sleep
+
 
 from file_data import FileData
 from utils import FileNotFoundException,color_distance,block_color_data
 from voxel_parser import VoxParser
+from pallete import Pallete
 
 BASE_CODE_PATH = pathlib.Path('.\\assets\\lua_base_code.txt')
 class VoxelConverter:
-    def __init__(self, file_data: FileData, output_folder: pathlib.Path) -> None:
+    def __init__(self, file_data: FileData, output_folder: pathlib.Path, pallete: Pallete) -> None:
         self.file_data = file_data
         self.output_folder =  output_folder
+
+        self.pallete = pallete
       
         
     def load_voxel_data(self) -> None:
@@ -17,12 +20,13 @@ class VoxelConverter:
             raise FileNotFoundException("File not found")    
 
         self.voxel_data = VoxParser(self.file_data.file_path)
+        self.voxel_data.import_vox(self.pallete)
         
            
 
     def generate_position_table(self) -> str:
         voxels = self.voxel_data.voxels
-        position_table = 'positions={'
+        position_table = 'positions = {'
      
         for voxel in voxels:
             position_line = '{'+f'{voxel.x},{voxel.y},{voxel.z},{voxel.c}'+'}'
@@ -54,13 +58,15 @@ class VoxelConverter:
 
     def generate_block_table(self) -> str:
         block_list = self.get_block_list()
-        blocks_table = "blocks{"
+        blocks_table = "blocks = {"
 
         for block in block_list:
             block_line = '{'+f'{block.block_id},{block.color_data}'+'}'
             blocks_table = blocks_table + block_line + ','
 
         return blocks_table.strip(',') + '}'
+
+    
     def get_postion_label(voxel:tuple)->str:
         return f"{voxel.x},{voxel.y},{voxel.z}"
 
@@ -80,7 +86,7 @@ class VoxelConverter:
         file_name = self.file_data.get_name() + ".txt"
 
         path = self.output_folder.joinpath(file_name)
-        sleep(10)
+        
         path.write_text(lua_script)
         
         return path

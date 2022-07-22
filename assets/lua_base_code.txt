@@ -1,26 +1,32 @@
-
 bulgind=false
 
 function build(e)
+    local x = e.x
+    local y = e.y + 1
+    local z = e.z
+        
+    local x_face = 1
+    local y_face = 3
+    local z_face = 2
+    local block_info_index = 4
+    local block_id_index = 1
+    local color_data_index = 2
     
     if not bulgind then
+        bulgind = true
         
         Chat:sendSystemMsg("#YConstrution started",0)
         threadpool:wait(0.5)
     
-        bulgind = true
-        
-        local x = e.x
-        local y = e.y + 1
-        local z = e.z
-        
-        local x_face = 1
-        local y_face = 2
-        local z_face = 3
-        
        for i = 1, #positions do
-         --threadpool:wait(0.0000000000001)
-         Block:setBlockAll(x + positions[i][1] ,y + positions[i][3],z+ positions[i][2],blocks[positions[i][4] + 1][1],blocks[positions[i][4]+ 1][2])
+        --threadpool:wait(0.0000000000001)
+        local x_pos = x + positions[i][x_face]
+        local y_pos = y + positions[i][y_face]
+        local z_pos = z + positions[i][z_face]
+        local block_id =  blocks[positions[i][block_info_index]][block_id_index]
+        local color_data = blocks[positions[i][block_info_index] ][color_data_index]
+         
+         Block:setBlockAll(x_pos, y_pos, z_pos, block_id, color_data)
        end
        Chat:sendSystemMsg("#GConstrution completed",0)
        return

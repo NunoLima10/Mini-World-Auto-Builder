@@ -4,10 +4,12 @@ import PySimpleGUI as sg
 
 from file_data import FileData,FileStatus
 from voxel_converter import VoxelConverter
-from voxel_parser import VoxPaserException
+from voxel_parser import VoxAsNoPalleteException, VoxPaserException
+from pallete import Pallete
+
 
 class ConverterManager:
-    def __init__(self, icon: str) -> None:
+    def __init__(self, icon: str, pallete: Pallete) -> None:
         self.icon = icon 
         self.file_extensions = ["txt","vox"]
         self.file_type = [("Voxel Data Files","*.vox")]
@@ -17,6 +19,8 @@ class ConverterManager:
     
         self.initial_folder = pathlib.Path.cwd()
         self.output_folder = self.initial_folder
+
+        self.pallete = pallete
 
     def get_new_file(self) -> None:
         path = sg.popup_get_file("File", no_window=True, file_types=self.file_type, icon=self.icon, initial_folder=self.initial_folder)
@@ -40,7 +44,7 @@ class ConverterManager:
     def set_file_for_conversion(self, full_name: str) -> None:
         self.selected_file = self.find_file_by_name(full_name)
       
-    def convert_file(self) -> None:
+    def convert_file(self) -> str:
         if not self.selected_file: 
             return
         if not self.selected_file.status == FileStatus.UNCONVERTED: 
@@ -50,20 +54,29 @@ class ConverterManager:
         file_extension = self.selected_file.get_extension()
         try:
             if file_extension == "vox":
-                file_converted = VoxelConverter(self.selected_file,self.output_folder)
+                file_converted = VoxelConverter(self.selected_file, self.output_folder, self.pallete)
 
                 self.files_data[full_name].status = FileStatus.CONVERTING
                 output_file_path = file_converted.convert_file() 
                 
                 self.files_data[full_name].converted_file_path = output_file_path
 
+            return "ok"
+
         except FileNotFoundError:
             del self.files_data[full_name]
             self.selected_file = None
+            return "FileNotFoundError"
 
         except VoxPaserException:
             self.files_data[full_name].status = FileStatus.NOT_SUPPORTED
             self.selected_file = None
+            return "VoxPaserException"
+
+        except VoxAsNoPalleteException:
+            return "VoxAsNoPalleteException"
+         
+        
 
     def finished_conversation(self) -> None:
         full_name = self.selected_file.full_name

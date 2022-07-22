@@ -20,13 +20,16 @@ class Layout:
     def build_layout(self)-> list:
     
         logo_box = [
+            
+            
             sg.Col(
                 layout = [[sg.Image('assets\\text_logo.png', background_color=self.palette["Color1"])]],
                 element_justification = "c",
                 vertical_alignment = "c",
                 expand_x = True,
                 background_color = self.palette["Color1"]
-                )
+                ),
+            
             ]
 
         list_box = [
@@ -87,6 +90,13 @@ class Layout:
                 self.language_data["Output Folder"],
                 "---",
                 self.language_data["Exit"],
+                ]
+
+            ],
+            
+            [self.language_data["Palette"],
+                [
+                self.language_data["Select Palette"]
                 ]
 
             ],

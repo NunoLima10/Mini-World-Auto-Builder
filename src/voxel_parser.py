@@ -2,6 +2,9 @@
 import struct
 from collections import namedtuple
 
+from pallete import  Pallete
+from utils import FileNotFoundException
+
 DEFAULT_PALETTE = [0x00000000, 0xffffffff, 0xffccffff, 0xff99ffff, 0xff66ffff, 0xff33ffff, 0xff00ffff, 0xffffccff,
                    0xffccccff, 0xff99ccff, 0xff66ccff, 0xff33ccff, 0xff00ccff, 0xffff99ff, 0xffcc99ff, 0xff9999ff,
                    0xff6699ff, 0xff3399ff, 0xff0099ff, 0xffff66ff, 0xffcc66ff, 0xff9966ff, 0xff6666ff, 0xff3366ff,
@@ -43,6 +46,9 @@ class VoxPaserException(Exception):
     def __init__(self, *args: object) -> None:
         super().__init__(*args)
 
+class VoxAsNoPalleteException(Exception):
+    def __init__(self, *args: object) -> None:
+        super().__init__(*args)
 
 class VoxParser:
     def __init__(self, path: str) -> None:
@@ -54,9 +60,9 @@ class VoxParser:
         self.voxels = []
         self.palette = []
 
-        self.import_vox()
+        
 
-    def import_vox(self, load_frame=0) -> None:
+    def import_vox(self, pallete: Pallete, load_frame=0) -> None:
 
             with open(self.path, 'rb') as vox:
                 current_frame = 0
@@ -121,12 +127,17 @@ class VoxParser:
                         # Any other chunk, we don't know how to handle
                         raise VoxPaserException("Voxel format not supported")
                         
-
             if not self.palette: 
-                for col in range(256):
-                    color_data = struct.unpack('<4B', struct.pack('<I', DEFAULT_PALETTE[col]))
-                    r, g, b, a = color_data
-                    self.palette.append(Color(r, g, b, a))
+                try:
+                    pallete.load()
+                    for pixel in pallete.pixels:
+                        r, g, b, a =  pixel
+                        self.palette.append(Color(r, g, b, a))
+                except FileNotFoundException:
+                    raise VoxAsNoPalleteException
+               
+
+                
        
 
 

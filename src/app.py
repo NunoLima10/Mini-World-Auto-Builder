@@ -7,7 +7,7 @@ from langues import Language
 from converter_manager import ConverterManager
 from pallete import Pallete
 from open_url import open_page_url
-from popup_controller import Popup
+from popup import Popup
 
 class App:
     def __init__(self, title: str, size: tuple, icon: str, language: str) -> None:
@@ -16,15 +16,15 @@ class App:
         self.icon = icon
 
 
-        self.language = Language(language)
-        self.language_data = self.language.get_language_data()
-        self.languages_labels = self.language.get_languages_labels()
 
         self.animation_frame = 0
         self.converting = False
         
+        self.language = Language(language)
+        self.language_data = self.language.language_data
+        self.languages_labels = self.language.get_languages_labels()
+
         self.layout = Layout(self.language_data, self.languages_labels)
-        self.font = self.layout.get_font()
 
         self.pallete = Pallete(icon, pallete_path='.\\assets\\Mini_World_color_pallete.png')
         self.converter_manager = ConverterManager(self.icon, self.pallete)
@@ -45,23 +45,34 @@ class App:
             self.language_data["Repository"]: self.open_page,
             self.language_data["Version"]: self.open_version_popup,
             self.language_data["Select Palette"]: self.set_defaut_pallete,
+            self.language_data["Show Palette"]:self.show_palette
         }
 
     def create_window(self) -> None:
         window_layout = self.layout.build_layout()
-        self.window = sg.Window(self.title, window_layout, size=self.size, icon=self.icon, background_color=self.layout.palette["Color1"])
+        self.window = sg.Window(
+            self.title, 
+            window_layout, 
+            size=self.size, 
+            icon=self.icon, 
+            background_color=self.layout.palette["Color1"]
+            )
      
 
     def open_get_file(self, **kwarg) -> None:
         self.converter_manager.get_new_file()
         self.window["-LISTBOX-"].update(values=self.converter_manager.get_files_lables())
 
-    def change_output_folder(self, **kwarg)-> None:
-         self.converter_manager.set_output_folder()
+    def change_output_folder(self, **kwarg) -> None:
+        print("disparado")
+        self.converter_manager.set_output_folder()
 
 
-    def set_file_status(self, **kwarg)-> None:
-        if len(self.values["-LISTBOX-"]) == 0: return
+    def set_file_status(self, **kwarg) -> None:
+
+        if len(self.values["-LISTBOX-"]) == 0: 
+            return
+
         file_name = self.values["-LISTBOX-"][0]
         animation = ["",".","..","..."]
 
@@ -78,7 +89,8 @@ class App:
 
     def convert_voxel_data(self, **kwarg) -> None:
 
-        if len(self.values["-LISTBOX-"]) == 0: return
+        if len(self.values["-LISTBOX-"]) == 0: 
+            return
 
         file_name = self.values["-LISTBOX-"][0]
 
@@ -97,19 +109,48 @@ class App:
         
     
     def set_defaut_pallete(self, **kwarg) -> None: 
-       
-        self.converter_manager.pallete = self.pallete
+        load_status = self.pallete.get_pattlete()
 
-    def open_version_popup(self,event)-> None:
+        if load_status == "Success":
+            self.converter_manager.pallete = self.pallete
+            return
+        self.popup.show(
+                            title=self.language_data["Warning"],
+                            description=self.language_data[load_status],
+                            button_text=self.language_data["ok"]
+                            )
+        
+
+    def open_version_popup(self, **kwarg) -> None:
         print("open_version_popup")
     
 
     def change_language(self, language_Label: str) -> None:
 
-        if self.converting: return
-
-        self.language_data = self.language.change_language(language_Label)
+        if self.converting: 
+            self.popup.show("",self.language_data["CannotChangeLanguage"],self.language_data["ok"])
+            return
+        
+        self.language.change_language(language_Label)
+        self.language_data = self.language.language_data
+        self.languages_labels = self.language.get_languages_labels()
+        
         self.layout = Layout(self.language_data, self.languages_labels)
+
+        self.events = {
+            "-RUN-":self.convert_voxel_data,
+            "-FINDFILE-":self.open_get_file,
+            "-LISTBOX-" :self.set_file_status,
+            self.language_data["Find File"]: self.open_get_file,
+            self.language_data["Output Folder"]: self.change_output_folder,
+            self.language_data["Tutorial"]: self.open_page,
+            self.language_data["Online Voxelizer"]: self.open_page,
+            self.language_data["YouTube Channel"]: self.open_page,
+            self.language_data["Repository"]: self.open_page,
+            self.language_data["Version"]: self.open_version_popup,
+            self.language_data["Select Palette"]: self.set_defaut_pallete,
+            self.language_data["Show Palette"]:self.show_palette
+        }
 
         self.close()
         self.create_window()
@@ -117,6 +158,10 @@ class App:
         _, self.values = self.window.read(timeout=20)
         self.window["-LISTBOX-"].update(values=self.converter_manager.get_files_lables())
         self.window["-STATUS-"].update(self.language_data["Status"])
+
+
+    def show_palette(self, **kwarg) -> None:
+        self.pallete.show_pallete()   
             
 
     def run(self)-> None:
@@ -142,11 +187,17 @@ class App:
                 conversion_status = self.values["--CONVERTION_END--"]
                 self.converting = False
 
-                if conversion_status == "ok":
-                    self.converter_manager.finished_conversation()
-                    self.set_file_status()
-                else:
-                    self.popup.show("",self.language_data[conversion_status],"ok")
+                if conversion_status:
+
+                    if conversion_status == "Success":
+                        self.converter_manager.finished_conversation()
+                        self.set_file_status()
+                    else:
+                        self.popup.show(
+                            title=self.language_data["Warning"],
+                            description=self.language_data[conversion_status],
+                            button_text=self.language_data["ok"]
+                            )
                
                          
     def close(self)-> None:

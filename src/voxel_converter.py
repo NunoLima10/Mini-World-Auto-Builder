@@ -1,10 +1,12 @@
 import pathlib
+import time
 
 
 from file_data import FileData
-from utils import FileNotFoundException,color_distance,block_color_data
+from utils import color_distance,block_color_data
 from voxel_parser import VoxParser
 from pallete import Pallete
+from Exceptions import FileNotFoundException
 
 BASE_CODE_PATH = pathlib.Path('.\\assets\\lua_base_code.txt')
 class VoxelConverter:
@@ -37,10 +39,10 @@ class VoxelConverter:
     def get_block_list(self) -> list[tuple]:
         color_data = self.voxel_data.palette
         block_list = []
-        processed_colors = set()
+        processed_colors = {}
 
         for color in color_data:
-            if color not in processed_colors:
+            if str(color) not in processed_colors:
                 block = block_color_data[0]
                 mim_delta_E = color_distance((color.r,color.g,color.b),(block.r,block.g,block.b))
 
@@ -52,8 +54,11 @@ class VoxelConverter:
                         mim_delta_E_block = block
 
                 block_list.append(mim_delta_E_block)
-            
-            processed_colors.add(color) 
+
+                processed_colors[str(color)] = mim_delta_E_block    
+                continue     
+            block_list.append(processed_colors[str(color)])
+
         return block_list
 
     def generate_block_table(self) -> str:
@@ -86,6 +91,7 @@ class VoxelConverter:
         file_name = self.file_data.get_name() + ".txt"
 
         path = self.output_folder.joinpath(file_name)
+        
         
         path.write_text(lua_script)
         

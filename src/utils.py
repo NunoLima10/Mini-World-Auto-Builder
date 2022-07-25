@@ -1,8 +1,6 @@
 from collections import namedtuple
 
-class FileNotFoundException(Exception):
-    def __init__(self, *args: object) -> None:
-        super().__init__(*args)
+
 
 def color_distance(color_1, color_2)-> float: 
     red_ajust = 0.299

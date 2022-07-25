@@ -14,22 +14,16 @@ class Language:
             self.language_data = self.langues_data[self.language_id] 
     
     
-    def get_languages_labels(self)-> list:
+    def get_languages_labels(self) -> list:
         return [self.langues_data[language]["Label"] for language in self.langues_data]
 
-    def get_language_data(self)-> list:
-        return self.language_data
-
-    def change_language(self,language_Label:str)-> list:
+    def change_language(self, language_Label: str) -> None:
         language_id = self.find_language_by_label(language_Label)
 
-        if self.language_id == language_id: return self.language_data
-
         self.language_id = language_id  
-        self.language_data = self.langues_data[language_id] 
-        return self.language_data
+        self.language_data = self.langues_data[self.language_id] 
         
-    def find_language_by_label(self,language_Label:str)-> str:
+    def find_language_by_label(self, language_Label: str) -> str:
         for language in self.langues_data:
             if self.langues_data[language]["Label"] == language_Label:
                 return self.langues_data[language]["Id"]
@@ -47,6 +41,7 @@ class Language:
         "Exit":"Sair",
         "Palette":"Paleta",
         "Select Palette":"Selecionar Paleta",
+        "Show Palette":"Ver Paleta",
         "Help":"Ajuda",
         "Language":"Idioma",
         "Tutorial":"Tutorial",
@@ -59,11 +54,13 @@ class Language:
         "Unconverted":"Não Convertido",
         "Not supported":"Não suportado",
         "Converting":"Convertendo",
-        
-        "VoxPaserException":"Ocorreu um erro na converção o ficheiro não é suportado",
+        "ok":"ok",
+        "Warning":"Aviso",
+        "VoxPaserException":"Ocorreu um erro na converção do ficheiro, \n tipo de ficheiro não é suportado",
         "FileNotFoundException":"O ficheiro não foi encontrado",
-        "PalletSizeException":"O tamanho da paleta não corresponde a tamanho padrão (256,1)",
-        "VoxAsNoPalleteException":"O arquivo vox não tem informações de cor e não tem uma paleta alternativa selecionado"
+        "PalletSizeException":"O tamanho da paleta não corresponde \nao tamanho padrão (256,1)",
+        "VoxHasNoPalleteException":"Paleta de cores selecionado não foi encontrado",
+        "CannotChangeLanguage":"Não pode mudar o idioma durante a conversão"
     }
     en = {
         "Label":"English",
@@ -76,6 +73,7 @@ class Language:
         "Exit":"Exit",
         "Palette":"Palette",
         "Select Palette":"Select Palette",
+        "Show Palette":"Show Palette",
         "Help":"Help",
         "Language": "Language",
         "Tutorial":"Tutorial",
@@ -87,7 +85,14 @@ class Language:
         "Converted":"Converted",
         "Unconverted":"Unconverted",
         "Not supported":"Not supported",
-        "Converting":"Converting"
+        "Converting":"Converting",
+        "ok":"ok",
+        "Warning":"Warning",
+        "VoxPaserException":"An error has occurred in the conversion of the file, \nfile type is not supported",
+        "FileNotFoundException":"The file was not found",
+        "PalletSizeException":"The size of the palette does not match  \nthe standard size (256,1)",
+        "VoxHasNoPalleteException":"Selected color pallete was not found",
+        "CannotChangeLanguage":" Cannot change language during conversion"
     }
 
 

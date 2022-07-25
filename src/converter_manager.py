@@ -4,7 +4,7 @@ import PySimpleGUI as sg
 
 from file_data import FileData,FileStatus
 from voxel_converter import VoxelConverter
-from voxel_parser import VoxAsNoPalleteException, VoxPaserException
+from Exceptions import VoxHasNoPalleteException, VoxPaserException
 from pallete import Pallete
 
 
@@ -34,7 +34,7 @@ class ConverterManager:
     def find_file_by_name(self, full_name: str) -> FileData:
         return self.files_data[full_name] if full_name in self.files_data else None
 
-    def get_files_lables(self)-> list:
+    def get_files_lables(self) -> list:
         return  self.files_data.keys()
     
     def get_file_status(self, full_name: str) -> str:
@@ -46,9 +46,9 @@ class ConverterManager:
       
     def convert_file(self) -> str:
         if not self.selected_file: 
-            return
+            return 
         if not self.selected_file.status == FileStatus.UNCONVERTED: 
-            return
+            return 
         full_name = self.selected_file.full_name
 
         file_extension = self.selected_file.get_extension()
@@ -61,7 +61,7 @@ class ConverterManager:
                 
                 self.files_data[full_name].converted_file_path = output_file_path
 
-            return "ok"
+            return "Success"
 
         except FileNotFoundError:
             del self.files_data[full_name]
@@ -73,8 +73,8 @@ class ConverterManager:
             self.selected_file = None
             return "VoxPaserException"
 
-        except VoxAsNoPalleteException:
-            return "VoxAsNoPalleteException"
+        except VoxHasNoPalleteException:
+            return "VoxHasNoPalleteException"
          
         
 

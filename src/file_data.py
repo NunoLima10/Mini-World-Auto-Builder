@@ -22,7 +22,7 @@ class FileData:
     def get_name(self) -> str:
         return self.full_name.strip("." + self.get_extension())
        
-    def get_extension(self)->str:
+    def get_extension(self) -> str:
         return self.full_name.split(".")[-1]
 
     def get_status(self) -> str:       
@@ -30,6 +30,8 @@ class FileData:
 
     def file_exists(self) -> bool:
         return self.file_path.is_file()
+
+
 
 
 

@@ -14,8 +14,6 @@ class Layout:
         "Color3":"#98BED9",
         "Color4":"#485B78",
         }
-    def get_font (self)->None:
-        return self.font 
 
     def build_layout(self)-> list:
     
@@ -96,7 +94,8 @@ class Layout:
             
             [self.language_data["Palette"],
                 [
-                self.language_data["Select Palette"]
+                self.language_data["Select Palette"],
+                self.language_data["Show Palette"]
                 ]
 
             ],

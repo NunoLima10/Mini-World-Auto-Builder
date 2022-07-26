@@ -2,6 +2,7 @@
 import pathlib
 import PySimpleGUI as sg
 
+
 from file_data import FileData,FileStatus
 from voxel_converter import VoxelConverter
 from Exceptions import VoxHasNoPalleteException, VoxPaserException
@@ -18,9 +19,17 @@ class ConverterManager:
         self.selected_file = None
     
         self.initial_folder = pathlib.Path.cwd()
-        self.output_folder = self.initial_folder
+
+        self.output_folder_name = "lua_scripts"
+        self.output_folder = self.initial_folder.joinpath(self.output_folder_name)
+        self.generate_output_folder()
 
         self.pallete = pallete
+
+    def generate_output_folder(self) -> None:
+        if not pathlib.Path.exists(self.output_folder):
+            self.output_folder.mkdir()
+
 
     def get_new_file(self) -> None:
         path = sg.popup_get_file("File", no_window=True, file_types=self.file_type, icon=self.icon, initial_folder=self.initial_folder)
@@ -45,6 +54,9 @@ class ConverterManager:
         self.selected_file = self.find_file_by_name(full_name)
       
     def convert_file(self) -> str:
+        
+        self.generate_output_folder()
+
         if not self.selected_file: 
             return 
         if not self.selected_file.status == FileStatus.UNCONVERTED: 
@@ -92,4 +104,4 @@ class ConverterManager:
   
         
 
-            
+    

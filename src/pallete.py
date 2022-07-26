@@ -34,6 +34,7 @@ class Pallete:
             raise PalletSizeException
 
     def show_pallete(self) -> None:
+        self.load()
         self.image.show(self.file_path.name)
 
 

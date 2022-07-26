@@ -88,7 +88,7 @@ class VoxelConverter:
 
         lua_script =  f"{postions}\n {blocks}\n {base_code}"
 
-        file_name = self.file_data.get_name() + ".txt"
+        file_name = self.file_data.get_name() + ".lua"
 
         path = self.output_folder.joinpath(file_name)
         

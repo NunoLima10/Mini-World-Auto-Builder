@@ -26,7 +26,7 @@ class App:
 
         self.layout = Layout(self.language_data, self.languages_labels)
 
-        self.pallete = Pallete(icon, pallete_path='.\\assets\\Mini_World_color_pallete.png')
+        self.pallete = Pallete(icon, pallete_path='.\\pallete\\Mini_World_color_pallete.png')
         self.converter_manager = ConverterManager(self.icon, self.pallete)
 
         self.popup = Popup(self.icon,(400,150))

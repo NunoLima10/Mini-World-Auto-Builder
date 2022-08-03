@@ -6,7 +6,8 @@ class Language:
 
         self.langues_data = {
         "en":self.en,
-        "pt":self.pt
+        "pt":self.pt,
+        "es":self.es
         }
         
         self.language_data = self.langues_data[defaut_language]
@@ -94,6 +95,38 @@ class Language:
         "VoxHasNoPalleteException":"Selected color pallete was not found",
         "CannotChangeLanguage":" Cannot change language during conversion"
     }
+    es = { 
+         "Label":"Español", 
+         "Id":"es", 
+         "Status":"Estado", 
+         "Run":"Ejecutar", 
+         "Find File":"Encontrar Archivo", 
+         "Output Folder":"Carpeta de Salida", 
+         "File":"Archivo", 
+         "Exit":"Salir", 
+         "Palette":"Paleta", 
+         "Select Palette":"Selecionar Paleta", 
+         "Show Palette":"Mostrar Paleta", 
+         "Help":"Ayuda", 
+         "Language": "Lenguaje ", 
+         "Tutorial":"Tutorial", 
+         "Online Voxelizer":"Voxelizador Online", 
+         "About":"Acerca de", 
+         "YouTube Channel":"Canal de Youtube", 
+         "Version":"Version", 
+         "Repository":"Repositorio", 
+         "Converted":"Convertido", 
+         "Unconverted":"Sin convertir", 
+         "Not supported":"No es compatible", 
+         "Converting":"Convirtiendo", 
+         "ok":"Aceptar", 
+         "Warning":"Alerta", 
+         "VoxPaserException":"Error en conversion de archivo, \ntipo de archivo no compatible", 
+         "FileNotFoundException":"El Archivo no fue encontrado", 
+         "PalletSizeException":"El tamaño de la paleta no es el correcto  \nel tamaño correcto es (256,1)", 
+         "VoxHasNoPalleteException":"La paleta de color seleccionada no fue encontrada", 
+         "CannotChangeLanguage":" No puedes cambiar el lenguaje durante la conversion" 
+     }
 
 
     

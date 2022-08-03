@@ -3,7 +3,7 @@ import struct
 
 from collections import namedtuple
 from pallete import  Pallete
-from Exceptions import VoxHasNoPalleteException,VoxPaserException,FileNotFoundException
+from exceptions import VoxHasNoPalleteException,VoxPaserException,FileNotFoundException
 
 
 Voxel = namedtuple("Voxel", "x y z c")

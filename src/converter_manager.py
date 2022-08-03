@@ -5,7 +5,7 @@ import PySimpleGUI as sg
 
 from file_data import FileData,FileStatus
 from voxel_converter import VoxelConverter
-from Exceptions import VoxHasNoPalleteException, VoxPaserException
+from exceptions import VoxHasNoPalleteException, VoxPaserException
 from pallete import Pallete
 
 

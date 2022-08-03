@@ -1,11 +1,9 @@
 
 import pathlib
-from select import select
-from time import sleep
 import PySimpleGUI as sg
 
 from PIL import Image
-from Exceptions import FileNotFoundException,PalletSizeException
+from exceptions import FileNotFoundException,PalletSizeException
 
 
 

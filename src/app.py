@@ -15,8 +15,6 @@ class App:
         self.size = size 
         self.icon = icon
 
-
-
         self.animation_frame = 0
         self.converting = False
         
@@ -37,15 +35,14 @@ class App:
             "-RUN-":self.convert_voxel_data,
             "-FINDFILE-":self.open_get_file,
             "-LISTBOX-" :self.set_file_status,
+            "-PALLETE_ICON-": self.set_defaut_pallete,
             self.language_data["Find File"]: self.open_get_file,
             self.language_data["Output Folder"]: self.change_output_folder,
             self.language_data["Tutorial"]: self.open_page,
             self.language_data["Online Voxelizer"]: self.open_page,
             self.language_data["YouTube Channel"]: self.open_page,
             self.language_data["Repository"]: self.open_page,
-            self.language_data["Version"]: self.open_version_popup,
-            self.language_data["Select Palette"]: self.set_defaut_pallete,
-            self.language_data["Show Palette"]:self.show_palette
+            self.language_data["Version"]: self.open_version_popup
         }
 
     def create_window(self) -> None:
@@ -57,6 +54,11 @@ class App:
             icon=self.icon, 
             background_color=self.layout.palette["Color1"]
             )
+        self.window.read(timeout=20)
+        self.window["-RUN-"].set_cursor("hand2")
+        self.window["-FINDFILE-"].set_cursor("hand2")
+        self.window["-PALLETE_ICON-"].set_cursor("hand2")
+        
      
 
     def open_get_file(self, **kwarg) -> None:
@@ -64,7 +66,6 @@ class App:
         self.window["-LISTBOX-"].update(values=self.converter_manager.get_files_lables())
 
     def change_output_folder(self, **kwarg) -> None:
-        print("disparado")
         self.converter_manager.set_output_folder()
 
 
@@ -109,14 +110,15 @@ class App:
         
     
     def set_defaut_pallete(self, **kwarg) -> None: 
-        load_status = self.pallete.get_pattlete()
+        load_status = self.pallete.get_pallete()
 
         if load_status == "Success":
             self.converter_manager.pallete = self.pallete
+            self.window["-PALLETE_IMG-"].update(data=self.pallete.get_resized_pallete())
             return
         self.popup.show(
                             title=self.language_data["Warning"],
-                            description=self.language_data[load_status],
+                            description=self.language_data[load_status], 
                             button_text=self.language_data["ok"]
                             )
         
@@ -141,15 +143,14 @@ class App:
             "-RUN-":self.convert_voxel_data,
             "-FINDFILE-":self.open_get_file,
             "-LISTBOX-" :self.set_file_status,
+            "-PALLETE_ICON-": self.set_defaut_pallete,
             self.language_data["Find File"]: self.open_get_file,
             self.language_data["Output Folder"]: self.change_output_folder,
             self.language_data["Tutorial"]: self.open_page,
             self.language_data["Online Voxelizer"]: self.open_page,
             self.language_data["YouTube Channel"]: self.open_page,
             self.language_data["Repository"]: self.open_page,
-            self.language_data["Version"]: self.open_version_popup,
-            self.language_data["Select Palette"]: self.set_defaut_pallete,
-            self.language_data["Show Palette"]:self.show_palette
+            self.language_data["Version"]: self.open_version_popup
         }
 
         self.close()
@@ -158,11 +159,7 @@ class App:
         _, self.values = self.window.read(timeout=20)
         self.window["-LISTBOX-"].update(values=self.converter_manager.get_files_lables())
         self.window["-STATUS-"].update(self.language_data["Status"])
-
-
-    def show_palette(self, **kwarg) -> None:
-        self.pallete.show_pallete()   
-            
+           
 
     def run(self)-> None:
         

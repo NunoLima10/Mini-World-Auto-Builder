@@ -1,6 +1,8 @@
 
 import PySimpleGUI as sg
 
+from pallete import Pallete
+
 class Layout:
     def __init__(self,language_data:dict , languages_labels:dict) -> None:
         
@@ -18,7 +20,6 @@ class Layout:
     def build_layout(self)-> list:
     
         logo_box = [
-            
             
             sg.Col(
                 layout = [[sg.Image('assets\\text_logo.png', background_color=self.palette["Color1"])]],
@@ -46,6 +47,7 @@ class Layout:
                 )
                 ]
             
+        
         status_text = [
             sg.Push(self.palette["Color1"]),
             sg.Text(
@@ -75,10 +77,39 @@ class Layout:
                 border_width = 0,
                 font = self.font,  
                 size = (25,2),
-            key = "-FINDFILE-"     
+                key = "-FINDFILE-"     
             ),
             sg.Push(self.palette["Color1"])
             ]
+              
+    
+        pallete_layout = [
+             [
+             sg.Button(
+                button_text="",
+                image_source ='assets\\pallete_icon.png',
+                key="-PALLETE_ICON-", 
+                button_color = (self.palette["Color1"], self.palette["Color1"]),
+                border_width=0
+            ),
+             sg.Image(
+                'pallete\\Mini_World_color_pallete.png', 
+                background_color=self.palette["Color1"],
+                key="-PALLETE_IMG-"
+                )
+             ]
+        ]
+        pallete = [sg.Frame(
+            self.language_data["Palette"],
+            layout=pallete_layout,
+            expand_x=True,
+            background_color=self.palette["Color1"],
+            font = self.font,
+            title_color=self.palette["Color4"],
+            relief=sg.RELIEF_FLAT
+            
+            )
+        ]
 
 
         menu_def = [
@@ -92,14 +123,6 @@ class Layout:
 
             ],
             
-            [self.language_data["Palette"],
-                [
-                self.language_data["Select Palette"],
-                self.language_data["Show Palette"]
-                ]
-
-            ],
-
             [self.language_data["Help"],
                 [
                 [self.language_data["Language"],self.languages_labels],
@@ -117,10 +140,12 @@ class Layout:
         ]
         menu = sg.Menu(
             menu_definition = menu_def,
-            pad=(10,10))
+            pad=(10,10)
+            )
+        
 
         content_box = sg.Column(
-            [list_box, status_text, action_box],
+            [list_box, pallete,status_text , action_box],
             expand_x = True,
             expand_y = True,
             background_color=self.palette["Color1"]

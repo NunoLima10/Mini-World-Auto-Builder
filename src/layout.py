@@ -92,10 +92,10 @@ class Layout:
                 button_color = (self.palette["Color1"], self.palette["Color1"]),
                 border_width=0
             ),
-             sg.Image(
-                'pallete\\Mini_World_color_pallete.png', 
+             sg.Image( 
                 background_color=self.palette["Color1"],
-                key="-PALLETE_IMG-"
+                key="-PALLETE_IMG-",
+                data=None
                 )
              ]
         ]

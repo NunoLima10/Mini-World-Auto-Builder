@@ -1,4 +1,5 @@
 
+from genericpath import isfile
 import struct
 
 from collections import namedtuple
@@ -19,10 +20,11 @@ class VoxParser:
         self.version: str = None
         self.size: tuple = None
         self.voxels = []
-        self.palette = []
+        self.pallete = []
 
     def import_vox(self, pallete: Pallete, load_frame=0) -> None:
-            
+        if not pallete.valid_path():
+            raise VoxHasNoPalleteException
 
             with open(self.path, 'rb') as vox:
                 current_frame = 0
@@ -87,14 +89,11 @@ class VoxParser:
                         # Any other chunk, we don't know how to handle
                         raise VoxPaserException("Voxel format not supported")
                         
-            if not self.palette: 
-                try:
-                    pallete.load()
+            if not self.pallete: 
                     for pixel in pallete.pixels:
                         r, g, b, a =  pixel
-                        self.palette.append(Color(r, g, b, a))
-                except FileNotFoundException:
-                    raise VoxHasNoPalleteException
+                        self.pallete.append(Color(r, g, b, a))
+                    
                
 
                 

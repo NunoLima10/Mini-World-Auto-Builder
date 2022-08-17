@@ -25,7 +25,7 @@ class FileData:
     def get_extension(self) -> str:
         return self.full_name.split(".")[-1]
 
-    def get_status(self) -> str:       
+    def get_status(self) -> FileStatus:       
         return self.status
 
     def file_exists(self) -> bool:

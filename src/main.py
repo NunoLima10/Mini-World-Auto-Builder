@@ -1,3 +1,4 @@
+
 from app import App
 
 __author__ = "Nuno Lima"
@@ -7,14 +8,8 @@ __maintainer__ = "Nuno Lima"
 __email__ = "contato.playcraft@gmail.com"
 __status__ = "Production"
 
-def main() -> None:
-    
-    title = "MiniWorld-AutoBuilder"
-    size = (500,500)
-    icon_path = "assets\icon_logo.ico"
-    language = "en"
-
-    app = App(title, size, icon_path, language)
+def main() -> None:  
+    app = App()
     app.run()
     app.close()
     

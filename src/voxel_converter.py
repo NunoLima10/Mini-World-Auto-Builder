@@ -37,7 +37,7 @@ class VoxelConverter:
         return position_table.strip(',') + '}'
 
     def get_block_list(self) -> list[tuple]:
-        color_data = self.voxel_data.palette
+        color_data = self.voxel_data.pallete
         block_list = []
         processed_colors = {}
 

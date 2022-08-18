@@ -22,9 +22,10 @@ class VoxParser:
         self.voxels = []
         self.pallete = []
 
-    def import_vox(self, pallete: Pallete, load_frame=0) -> None:
-        if not pallete.valid_path():
-            raise VoxHasNoPalleteException
+    def import_vox(self, color_pallete: Pallete, load_frame=0) -> None:
+        
+            if not color_pallete.valid_path():
+                raise VoxHasNoPalleteException
 
             with open(self.path, 'rb') as vox:
                 current_frame = 0
@@ -90,7 +91,7 @@ class VoxParser:
                         raise VoxPaserException("Voxel format not supported")
                         
             if not self.pallete: 
-                    for pixel in pallete.pixels:
+                    for pixel in color_pallete.pixels:
                         r, g, b, a =  pixel
                         self.pallete.append(Color(r, g, b, a))
                     

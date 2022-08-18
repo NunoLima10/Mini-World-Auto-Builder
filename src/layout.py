@@ -69,7 +69,7 @@ class Layout:
                 border_width = 0,
                 font = self.font, 
                 size = (25,2),
-                key = "-RUN-"    
+                key = "-CONVERT-"    
             ),
             sg.Button(
                 button_text = self.language_data["Find File"],
@@ -77,7 +77,7 @@ class Layout:
                 border_width = 0,
                 font = self.font,  
                 size = (25,2),
-                key = "-FINDFILE-"     
+                key = "-SELECT_FILE-"     
             ),
             sg.Push(self.palette["Color1"])
             ]

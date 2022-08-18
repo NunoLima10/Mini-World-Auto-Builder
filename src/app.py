@@ -57,8 +57,8 @@ class App:
             )
 
         self.window.read(timeout=20)
-        self.window["-RUN-"].set_cursor("hand2")
-        self.window["-FINDFILE-"].set_cursor("hand2")
+        self.window["-CONVERT-"].set_cursor("hand2")
+        self.window["-SELECT_FILE-"].set_cursor("hand2")
         self.window["-PALLETE_ICON-"].set_cursor("hand2")
 
     def popup_set_up(self) -> None:
@@ -89,11 +89,11 @@ class App:
 
     def event_set_up(self) -> None:
             self.events = {
-            "-RUN-":self.convert_voxel_data,
-            "-FINDFILE-":self.open_get_file,
-            "-LISTBOX-" :self.set_file_status,
+            "-CONVERT-": self.convert,
+            "-SELECT_FILE-": self.select_file,
+            "-LISTBOX-" : self.update_file_status,
             "-PALLETE_ICON-": self.select_pallete,
-            self.language_data["Find File"]: self.open_get_file,
+            self.language_data["Find File"]: self.select_file,
             self.language_data["Output Folder"]: self.change_output_folder,
             self.language_data["Tutorial"]: self.open_page,
             self.language_data["Online Voxelizer"]: self.open_page,
@@ -107,16 +107,23 @@ class App:
     
     #events
 
-    def open_get_file(self, **kwarg) -> None:
+    def convert(self, **kwarg) -> None:
+        if len(self.values["-LISTBOX-"]) == 0: 
+            return
+
+        file_name = self.values["-LISTBOX-"][0]
+        self.converter_manager.set_file_for_conversion(file_name)
+
+        key = "--CONVERTION_END--"
+        self.window.perform_long_operation(self.converter_manager.convert_file,key)
+        self.converting = True
+
+    def select_file(self, **kwarg) -> None:
         self.converter_manager.get_new_file()
         new_labels = self.converter_manager.get_files_labels()
         self.window["-LISTBOX-"].update(values=new_labels)
 
-    def change_output_folder(self, **kwarg) -> None:
-        self.converter_manager.set_output_folder()
-       
-
-    def set_file_status(self, **kwarg) -> None:
+    def update_file_status(self, **kwarg) -> None:
         if len(self.values["-LISTBOX-"]) == 0: 
             return
 
@@ -131,24 +138,6 @@ class App:
             status_text = f'{file_name} >> {self.language_data[status]}'
         self.window["-STATUS-"].Update(status_text)
 
-    def convert_voxel_data(self, **kwarg) -> None:
-        if len(self.values["-LISTBOX-"]) == 0: 
-            return
-
-        file_name = self.values["-LISTBOX-"][0]
-        self.converter_manager.set_file_for_conversion(file_name)
-
-        key = "--CONVERTION_END--"
-        self.window.perform_long_operation(self.converter_manager.convert_file,key)
-        self.converting = True
-           
-    def open_page(self, **kwarg) -> None:
-        for key,value in self.language_data.items():
-            if kwarg["event"] ==  value:
-               url_key = key 
-               break
-        open_page_url(url_key)
-          
     def select_pallete(self, **kwarg) -> None: 
         load_status = self.pallete.get_pallete()
 
@@ -160,6 +149,18 @@ class App:
                         description=self.language_data[load_status], 
                         button_text=self.language_data["ok"]
                         )
+
+    def change_output_folder(self, **kwarg) -> None:
+        self.converter_manager.set_output_folder()
+    
+           
+    def open_page(self, **kwarg) -> None:
+        for key,value in self.language_data.items():
+            if kwarg["event"] ==  value:
+               url_key = key 
+               break
+        open_page_url(url_key)
+          
 
     def change_language(self, language_Label: str) -> None:
         if self.converting: 
@@ -203,7 +204,7 @@ class App:
                 self.change_language(app_event)
 
             if self.converting:
-                self.set_file_status()
+                self.update_file_status()
             
             if app_event == "--CONVERTION_END--":
                 self.converting = False
@@ -212,7 +213,7 @@ class App:
                 if conversion_status:
                     if conversion_status == "Success":
                         self.converter_manager.finished_conversation()
-                        self.set_file_status()
+                        self.update_file_status()
                     else:
                         self.popup.show(
                                         title=self.language_data["Warning"],

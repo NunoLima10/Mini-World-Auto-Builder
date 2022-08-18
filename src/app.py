@@ -8,7 +8,7 @@ from src.layout import Layout
 from src.popup import Popup
 from src.pallete import Pallete
 from src.converter_manager import ConverterManager
-from src.open_url import open_page_url
+from src.browser import Browser
 
 class App:
     def __init__(self) -> None:
@@ -29,6 +29,7 @@ class App:
         self.converter_set_up()
 
         self.event_set_up()
+        self.bowser_set_up()
         self.animation_set_up()
         
     def language_set_up(self) -> None:
@@ -100,6 +101,9 @@ class App:
             self.language_data["YouTube Channel"]: self.open_page,
             self.language_data["Repository"]: self.open_page,
         }
+    
+    def bowser_set_up(self) -> None:
+        self.bowser =  Browser()
 
     def animation_set_up(self) -> None:
         self.animation_frame = 0
@@ -159,7 +163,7 @@ class App:
             if kwarg["event"] ==  value:
                url_key = key 
                break
-        open_page_url(url_key)
+        self.bowser.open_page(url_key)
           
 
     def change_language(self, language_Label: str) -> None:

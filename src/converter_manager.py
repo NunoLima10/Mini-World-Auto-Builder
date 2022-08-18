@@ -27,17 +27,17 @@ class ConverterManager:
 
     def get_new_file(self) -> None:
         path = sg.popup_get_file(
-                                "File", 
-                                no_window=True, 
-                                file_types=self.file_type, 
-                                icon=self.icon, 
-                                initial_folder=self.import_folder
-                                )
+                    "File", 
+                    no_window=True, 
+                    file_types=self.file_type, 
+                    icon=self.icon, 
+                    initial_folder=self.import_folder
+                )
         file_path = pathlib.Path(path)
 
         if file_path.is_file():
-                new_file_data = FileData(file_path)
-                self.files_data[new_file_data.full_name] = new_file_data
+            new_file_data = FileData(file_path)
+            self.files_data[new_file_data.full_name] = new_file_data
 
     def find_file_by_name(self, full_name: str) -> FileData:
         return self.files_data[full_name] if full_name in self.files_data else None
@@ -54,7 +54,7 @@ class ConverterManager:
       
     def convert_file(self) -> str:
         if not self.selected_file or not self.selected_file.status == FileStatus.UNCONVERTED : 
-            return 
+            return "VoxPaserException"
        
         full_name = self.selected_file.full_name
         file_extension = self.selected_file.get_extension()
@@ -84,15 +84,15 @@ class ConverterManager:
         self.selected_file = None
 
     def set_output_folder(self) -> None:
-           path = sg.popup_get_folder(
-                                        message="Folder", 
-                                        no_window=True, 
-                                        icon=self.icon, 
-                                        initial_folder=self.import_folder
-                                    )
-           folder_path = pathlib.Path(path)
-           if folder_path.is_dir():
-               self.export_folder = folder_path
+        path = sg.popup_get_folder(
+                    message="Folder", 
+                    no_window=True, 
+                    icon=self.icon, 
+                    initial_folder=self.import_folder
+                )
+        folder_path = pathlib.Path(path)
+        if folder_path.is_dir():
+            self.export_folder = folder_path
 
   
         

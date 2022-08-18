@@ -51,12 +51,12 @@ class Pallete:
 
     def get_pallete(self) -> str:
         path = sg.popup_get_file(
-                                "File", 
-                                no_window=True, 
-                                file_types=self.file_type, 
-                                icon=self.icon, 
-                                initial_folder=self.initial_folder
-                                )
+                    "File", 
+                    no_window=True, 
+                    file_types=self.file_type, 
+                    icon=self.icon, 
+                    initial_folder=self.initial_folder
+                )
         file_path = pathlib.Path(path)
         return self.load(file_path)
 

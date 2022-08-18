@@ -54,7 +54,7 @@ class App:
             size=(window_size,  window_size),
             icon=icon, 
             background_color=self.layout.palette["Color1"]
-            )
+        )
 
         self.window.read(timeout=20)
         self.window["-CONVERT-"].set_cursor("hand2")
@@ -65,7 +65,7 @@ class App:
         width = 400
         height = 150
         icon = self.app_config.config["Icon Path"]
-        self.popup = Popup(icon,(width,height))
+        self.popup = Popup(icon, (width,height))
 
     def pallete_set_up(self) -> None:
         pallete_path = self.app_config.config["Pallete"]
@@ -79,16 +79,16 @@ class App:
             self.window["-PALLETE_IMG-"].update(data=self.pallete.get_resized_pallete()) 
             return 
         self.popup.show(
-                        title=self.language_data["Warning"],
-                        description=self.language_data[load_status], 
-                        button_text=self.language_data["ok"]
-                        )
+            title=self.language_data["Warning"],
+            description=self.language_data[load_status], 
+            button_text=self.language_data["ok"]
+        )
 
     def converter_set_up(self) -> None:
         self.converter_manager = ConverterManager(self.app_config, self.pallete)
 
     def event_set_up(self) -> None:
-            self.events = {
+        self.events = {
             "-CONVERT-": self.convert,
             "-SELECT_FILE-": self.select_file,
             "-LISTBOX-" : self.update_file_status,
@@ -115,7 +115,7 @@ class App:
         self.converter_manager.set_file_for_conversion(file_name)
 
         key = "--CONVERTION_END--"
-        self.window.perform_long_operation(self.converter_manager.convert_file,key)
+        self.window.perform_long_operation(self.converter_manager.convert_file, key)
         self.converting = True
 
     def select_file(self, **kwarg) -> None:
@@ -145,10 +145,10 @@ class App:
             self.window["-PALLETE_IMG-"].update(data=self.pallete.get_resized_pallete())
             return 
         self.popup.show(
-                        title=self.language_data["Warning"],
-                        description=self.language_data[load_status], 
-                        button_text=self.language_data["ok"]
-                        )
+            title=self.language_data["Warning"],
+            description=self.language_data[load_status], 
+            button_text=self.language_data["ok"]
+        )
 
     def change_output_folder(self, **kwarg) -> None:
         self.converter_manager.set_output_folder()
@@ -165,10 +165,10 @@ class App:
     def change_language(self, language_Label: str) -> None:
         if self.converting: 
             self.popup.show(
-                            title=self.language_data["Warning"],
-                            description=self.language_data["CannotChangeLanguage"],
-                            button_text=self.language_data["ok"]
-                            )
+                title=self.language_data["Warning"],
+                description=self.language_data["CannotChangeLanguage"],
+                button_text=self.language_data["ok"]
+            )
             return
         
         self.language.change_language(language_Label)
@@ -189,7 +189,6 @@ class App:
            
 
     def run(self)-> None:
-        
         while True:
             app_event, self.values = self.window.read(timeout=20)
 
@@ -216,10 +215,11 @@ class App:
                         self.update_file_status()
                     else:
                         self.popup.show(
-                                        title=self.language_data["Warning"],
-                                        description=self.language_data[conversion_status],
-                                        button_text=self.language_data["ok"]
-                                        )                    
+                            title=self.language_data["Warning"],
+                            description=self.language_data[conversion_status],
+                            button_text=self.language_data["ok"]
+                        )        
+
     def save_config(self) -> None:
         self.app_config.config["Import"] = self.converter_manager.import_folder
         self.app_config.config["Export"] = self.converter_manager.export_folder
@@ -228,7 +228,6 @@ class App:
 
         self.app_config.save()
 
-    
     def close(self)-> None:
         self.save_config()
         self.window.close()

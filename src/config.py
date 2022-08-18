@@ -11,8 +11,7 @@ class AppConfig:
 
         self.load_config()
         
-
-    def generate_export_folder(self, import_folder:pathlib.Path ) -> pathlib.Path:
+    def generate_export_folder(self, import_folder: pathlib.Path ) -> pathlib.Path:
         folder_name = "lua_scripts"
         export_folder = import_folder.joinpath(folder_name)
 
@@ -20,10 +19,7 @@ class AppConfig:
             export_folder.mkdir()
         return export_folder
 
-    
-
     def generate_default_config(self) -> ConfigParser:
-
         default_config = ConfigParser()
 
         title = 'MiniWorld-AutoBuilder'
@@ -35,7 +31,6 @@ class AppConfig:
         import_folder = pathlib.Path.cwd()
         export_folder = self.generate_export_folder(import_folder)
         lua_base_code = '.\\assets\\lua_base_code.txt'
-
 
         default_config.add_section('UI')
         default_config.set('UI','Title',title)
@@ -56,7 +51,6 @@ class AppConfig:
 
         default_config.add_section('Lua Base Code')
         default_config.set('Lua Base Code','Path',lua_base_code)
-        
 
         return default_config
 

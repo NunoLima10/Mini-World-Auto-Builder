@@ -1,5 +1,5 @@
 
-from app import App
+from src.app import App
 
 __author__ = "Nuno Lima"
 __copyright__ = "Copyright 2022 Nuno Lima"

@@ -2,11 +2,11 @@ import pathlib
 import time
 
 
-from file_data import FileData
-from utils import color_distance,block_color_data
-from voxel_parser import VoxParser
-from pallete import Pallete
-from exceptions import FileNotFoundException
+from src.file_data import FileData
+from src.utils import color_distance,block_color_data
+from src.voxel_parser import VoxParser
+from src.pallete import Pallete
+from src.exceptions import FileNotFoundException
 
 BASE_CODE_PATH = pathlib.Path('.\\assets\\lua_base_code.txt')
 class VoxelConverter:

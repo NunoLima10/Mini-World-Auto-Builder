@@ -3,8 +3,8 @@ from genericpath import isfile
 import struct
 
 from collections import namedtuple
-from pallete import  Pallete
-from exceptions import VoxHasNoPalleteException,VoxPaserException,FileNotFoundException
+from src.pallete import  Pallete
+from src.exceptions import VoxHasNoPalleteException,VoxPaserException,FileNotFoundException
 
 
 Voxel = namedtuple("Voxel", "x y z c")

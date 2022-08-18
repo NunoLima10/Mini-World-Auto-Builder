@@ -2,13 +2,13 @@
 import PySimpleGUI as sg
 import math 
 
-from config import AppConfig
-from langues import Language
-from layout import Layout
-from popup import Popup
-from pallete import Pallete
-from converter_manager import ConverterManager
-from open_url import open_page_url
+from src.config import AppConfig
+from src.langues import Language
+from src.layout import Layout
+from src.popup import Popup
+from src.pallete import Pallete
+from src.converter_manager import ConverterManager
+from src.open_url import open_page_url
 
 class App:
     def __init__(self) -> None:

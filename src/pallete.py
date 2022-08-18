@@ -4,7 +4,7 @@ import PySimpleGUI as sg
 
 from io import BytesIO
 from PIL import Image
-from exceptions import FileNotFoundException,PalletSizeException
+from src.exceptions import FileNotFoundException,PalletSizeException
 
 
 

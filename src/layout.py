@@ -1,7 +1,7 @@
 
 import PySimpleGUI as sg
 
-from pallete import Pallete
+from src.pallete import Pallete
 
 class Layout:
     def __init__(self,language_data:dict , languages_labels:dict) -> None:

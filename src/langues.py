@@ -1,6 +1,6 @@
 
 class Language:
-    def __init__(self,language_id:str) -> None:
+    def __init__(self, language_id: str) -> None:
         defaut_language = "en" 
         self.language_id = language_id
 
@@ -14,8 +14,7 @@ class Language:
         if self.language_id in self.langues_data:
             self.language_data = self.langues_data[self.language_id] 
     
-    
-    def get_languages_labels(self) -> list:
+    def get_languages_labels(self) -> list[str]:
         return [self.langues_data[language]["Label"] for language in self.langues_data]
 
     def change_language(self, language_Label: str) -> None:
@@ -35,7 +34,7 @@ class Language:
         "Label":"Português",
         "Id":"pt",
         "Status":"Estado",
-        "Run":"Executar",
+        "Convert":"Converter",
         "Find File":"Localizar Arquivo",
         "Output Folder":"Salvar na pasta",
         "File":"Ficheiro",
@@ -49,7 +48,6 @@ class Language:
         "Online Voxelizer":"Voxelizer Online",
         "About":"Sobre",
         "YouTube Channel":"Canal no YouTube",
-        "Version":"Versão",
         "Repository":"Repositorio",
         "Converted":"Convertido",
         "Unconverted":"Não Convertido",
@@ -67,7 +65,7 @@ class Language:
         "Label":"English",
         "Id":"en",
         "Status":"Status",
-        "Run":"Run",
+        "Convert":"Convert",
         "Find File":"Find File",
         "Output Folder":"Output Folder",
         "File":"File",
@@ -81,7 +79,6 @@ class Language:
         "Online Voxelizer":"Online Voxelizer",
         "About":"About",
         "YouTube Channel":"YouTube Channel",
-        "Version":"Version",
         "Repository":"Repository",
         "Converted":"Converted",
         "Unconverted":"Unconverted",
@@ -99,7 +96,7 @@ class Language:
          "Label":"Español", 
          "Id":"es", 
          "Status":"Estado", 
-         "Run":"Ejecutar", 
+         "Convert":"Ejecutar", 
          "Find File":"Encontrar Archivo", 
          "Output Folder":"Carpeta de Salida", 
          "File":"Archivo", 
@@ -113,7 +110,6 @@ class Language:
          "Online Voxelizer":"Voxelizador Online", 
          "About":"Acerca de", 
          "YouTube Channel":"Canal de Youtube", 
-         "Version":"Version", 
          "Repository":"Repositorio", 
          "Converted":"Convertido", 
          "Unconverted":"Sin convertir", 

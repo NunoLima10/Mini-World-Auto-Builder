@@ -1,11 +1,10 @@
 
-import pathlib
 import PySimpleGUI as sg
+import pathlib
 
 from io import BytesIO
 from PIL import Image
 from src.exceptions import FileNotFoundException,PalletSizeException
-
 
 
 class Pallete:
@@ -32,7 +31,7 @@ class Pallete:
         if self.width != 256 or self.height != 1 :
             raise PalletSizeException
 
-    def load(self, path : pathlib.Path) -> str:
+    def load(self, path: pathlib.Path) -> str:
         try:
             self.parser(path)
             self.file_path = path
@@ -51,8 +50,13 @@ class Pallete:
         return bio.getvalue()
 
     def get_pallete(self) -> str:
-        path = sg.popup_get_file("File", no_window=True, file_types=self.file_type, 
-                                icon=self.icon, initial_folder=self.initial_folder)
+        path = sg.popup_get_file(
+                                "File", 
+                                no_window=True, 
+                                file_types=self.file_type, 
+                                icon=self.icon, 
+                                initial_folder=self.initial_folder
+                                )
         file_path = pathlib.Path(path)
         return self.load(file_path)
 

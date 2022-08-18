@@ -1,19 +1,19 @@
 import pathlib
-import time
-
 
 from src.file_data import FileData
-from src.utils import color_distance,block_color_data
 from src.voxel_parser import VoxParser
 from src.pallete import Pallete
 from src.exceptions import FileNotFoundException
+from src.config import AppConfig
+from src.utils import color_distance,block_color_data
 
-BASE_CODE_PATH = pathlib.Path('.\\assets\\lua_base_code.txt')
 class VoxelConverter:
-    def __init__(self, file_data: FileData, output_folder: pathlib.Path, pallete: Pallete) -> None:
+    def __init__(self, app_config: AppConfig, file_data: FileData, pallete: Pallete) -> None:
+        self.app_config = app_config
+        self. export_folder: pathlib.Path = app_config.config["Export"]
+        self.base_code: pathlib.Path = app_config.config["Lua Code"]
+        
         self.file_data = file_data
-        self.output_folder =  output_folder
-
         self.pallete = pallete
       
         
@@ -24,8 +24,6 @@ class VoxelConverter:
         self.voxel_data = VoxParser(self.file_data.file_path)
         self.voxel_data.import_vox(self.pallete)
         
-           
-
     def generate_position_table(self) -> str:
         voxels = self.voxel_data.voxels
         position_table = 'positions = {'
@@ -84,15 +82,13 @@ class VoxelConverter:
 
         postions = self.generate_position_table()
         blocks = self.generate_block_table()
-        base_code = BASE_CODE_PATH.read_text()
+        base_code = self.base_code.read_text()
 
         lua_script =  f"{postions}\n {blocks}\n {base_code}"
 
         file_name = self.file_data.get_name() + ".lua"
 
-        path = self.output_folder.joinpath(file_name)
-        
-        
+        path = self.export_folder.joinpath(file_name)
         path.write_text(lua_script)
         
         return path

@@ -1,8 +1,6 @@
 from collections import namedtuple
 
-
-
-def color_distance(color_1, color_2)-> float: 
+def color_distance(color_1, color_2) -> float: 
     red_ajust = 0.299
     green_ajust = 0.587
     blue_ajust = 0.114

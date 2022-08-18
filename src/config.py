@@ -70,6 +70,7 @@ class AppConfig:
             "Lua Code" :pathlib.Path(self.config_paser["Lua Base Code"]["Path"]),     
             "Window Size":(int(self.config_paser["UI"]["Window Size"])) 
         }
+        self.valid_config()
                 
     def save(self) -> None:
         pallete_path = self.config["Pallete"]
@@ -86,4 +87,22 @@ class AppConfig:
             self.config_paser.write(configfile)
 
     def valid_config(self) -> None:
-        pass
+        defaut_config = self.generate_default_config()
+
+        pallete_path: pathlib.Path = self.config["Pallete"]
+        export_folder: pathlib.Path = self.config["Export"]
+        import_folder: pathlib.Path = self.config["Import"]
+
+        if not pathlib.Path.exists(pallete_path):
+           self.config["Pallete"] = defaut_config["Pallete"]["Path"]
+
+        if not pathlib.Path.exists(export_folder):
+           self.config["Export"] = defaut_config["Export"]["Path"]
+        
+        if not pathlib.Path.exists(import_folder):
+           self.config["Import"] = defaut_config["Import"]["Path"]
+        
+        
+
+        
+

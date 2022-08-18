@@ -5,12 +5,13 @@ import pathlib
 from src.config import AppConfig
 from src.pallete import Pallete
 from src.voxel_converter import VoxelConverter
-from src.file_data import FileData,FileStatus
+from src.file_data import FileData
+from src.file_status import FileStatus
 from src.exceptions import VoxHasNoPalleteException, VoxPaserException
 
 
 class ConverterManager:
-    def __init__(self, app_config: AppConfig ,pallete: Pallete) -> None:
+    def __init__(self, app_config: AppConfig, pallete: Pallete) -> None:
         self.app_config = app_config
         self.pallete = pallete
 
@@ -56,7 +57,6 @@ class ConverterManager:
             return 
        
         full_name = self.selected_file.full_name
-
         file_extension = self.selected_file.get_extension()
         try:
             if file_extension == "vox":
@@ -66,9 +66,7 @@ class ConverterManager:
                 output_file_path = file_converted.convert_file() 
                 
                 self.files_data[full_name].converted_file_path = output_file_path
-
             return "Success"
-
         except FileNotFoundError:
             del self.files_data[full_name]
             self.selected_file = None

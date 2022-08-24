@@ -1,4 +1,5 @@
 import pathlib
+import re
 
 from src.file_data import FileData
 from src.voxel_parser import VoxParser
@@ -10,7 +11,7 @@ from src.utils import color_distance,block_color_data
 class VoxelConverter:
     def __init__(self, app_config: AppConfig, file_data: FileData, pallete: Pallete) -> None:
         self.app_config = app_config
-        self. export_folder: pathlib.Path = app_config.config["Export"]
+        self.export_folder: pathlib.Path = app_config.config["Export"]
         self.base_code: pathlib.Path = app_config.config["Lua Code"]
         
         self.file_data = file_data
@@ -26,7 +27,7 @@ class VoxelConverter:
         
     def generate_position_table(self) -> str:
         voxels = self.voxel_data.voxels
-        position_table = 'positions = {'
+        position_table = 'blocks_positions = {'
      
         for voxel in voxels:
             position_line = '{'+f'{voxel.x},{voxel.y},{voxel.z},{voxel.c}'+'}'
@@ -61,7 +62,7 @@ class VoxelConverter:
 
     def generate_block_table(self) -> str:
         block_list = self.get_block_list()
-        blocks_table = "blocks = {"
+        blocks_table = 'blocks_pallete = {'
 
         for block in block_list:
             block_line = '{'+f'{block.block_id},{block.color_data}'+'}'
@@ -69,6 +70,9 @@ class VoxelConverter:
 
         return blocks_table.strip(',') + '}'
 
+    def generate_size_table(self) -> str:
+        size =  self.voxel_data.size
+        return 'size = {' + f'x= {size.x},y= {size.y},z ={size.z}' + '}'
     
     def get_postion_label(voxel:tuple)->str:
         return f"{voxel.x},{voxel.y},{voxel.z}"
@@ -82,14 +86,17 @@ class VoxelConverter:
 
         postions = self.generate_position_table()
         blocks = self.generate_block_table()
+        size = self.generate_size_table()
         base_code = self.base_code.read_text()
 
-        lua_script =  f"{postions}\n {blocks}\n {base_code}"
+        lua_script =  f"{postions}\n{blocks}\n{size}\n{base_code}"
 
         file_name = self.file_data.get_name() + ".lua"
 
         path = self.export_folder.joinpath(file_name)
         path.write_text(lua_script)
+
+      
         
         return path
         

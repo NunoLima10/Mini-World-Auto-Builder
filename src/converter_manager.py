@@ -60,7 +60,7 @@ class ConverterManager:
         file_extension = self.selected_file.get_extension()
         try:
             if file_extension == "vox":
-                file_converted = VoxelConverter(self.selected_file, self.export_folder, self.pallete)
+                file_converted = VoxelConverter(self.app_config, self.selected_file, self.pallete)
 
                 self.files_data[full_name].status = FileStatus.CONVERTING
                 output_file_path = file_converted.convert_file() 

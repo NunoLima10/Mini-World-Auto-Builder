@@ -1,6 +1,5 @@
 import PySimpleGUI as sg
 
-
 class Popup:
     def __init__(self, icon: str, size: tuple) -> None:
 

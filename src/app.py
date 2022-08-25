@@ -1,15 +1,13 @@
-
-import PySimpleGUI as sg
-import math 
-
+from src.browser import Browser
 from src.config import AppConfig
+from src.converter_manager import ConverterManager
 from src.langues import Language
 from src.layout import Layout
 from src.popup import Popup
 from src.pallete import Pallete
-from src.converter_manager import ConverterManager
-from src.browser import Browser
 
+import PySimpleGUI as sg
+import math 
 class App:
     def __init__(self) -> None:
 

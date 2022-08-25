@@ -1,12 +1,11 @@
-import pathlib
-import re
-
+from src.config import AppConfig
+from src.exceptions import FileNotFoundException
 from src.file_data import FileData
 from src.voxel_parser import VoxParser
 from src.pallete import Pallete
-from src.exceptions import FileNotFoundException
-from src.config import AppConfig
 from src.utils import color_distance,block_color_data
+
+import pathlib
 
 class VoxelConverter:
     def __init__(self, app_config: AppConfig, file_data: FileData, pallete: Pallete) -> None:

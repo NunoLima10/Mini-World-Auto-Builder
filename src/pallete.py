@@ -1,10 +1,10 @@
+from src.exceptions import FileNotFoundException,PalletSizeException
+from io import BytesIO
+from PIL import Image
+
 
 import PySimpleGUI as sg
 import pathlib
-
-from io import BytesIO
-from PIL import Image
-from src.exceptions import FileNotFoundException,PalletSizeException
 
 
 class Pallete:

@@ -1,10 +1,8 @@
-
-import struct
-
-from src.pallete import  Pallete
 from collections import namedtuple
 from src.exceptions import VoxHasNoPalleteException,VoxPaserException
+from src.pallete import  Pallete
 
+import struct
 
 Voxel = namedtuple("Voxel", "x y z c")
 Size = namedtuple("Size", "x y z")

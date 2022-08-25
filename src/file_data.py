@@ -1,6 +1,6 @@
+from src.file_status import FileStatus
 
 import pathlib
-from src.file_status import FileStatus
 
 class FileData:
     def __init__(self, path: pathlib.Path) -> None:

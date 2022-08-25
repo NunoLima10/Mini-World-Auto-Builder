@@ -1,8 +1,6 @@
-
-import pathlib
-
 from configparser import ConfigParser
 
+import pathlib
 
 class AppConfig:
     def __init__(self) -> None:

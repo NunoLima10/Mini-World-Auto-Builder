@@ -1,14 +1,12 @@
-
-import PySimpleGUI as sg
-import pathlib
-
 from src.config import AppConfig
-from src.pallete import Pallete
-from src.voxel_converter import VoxelConverter
+from src.exceptions import VoxHasNoPalleteException, VoxPaserException
 from src.file_data import FileData
 from src.file_status import FileStatus
-from src.exceptions import VoxHasNoPalleteException, VoxPaserException
+from src.pallete import Pallete
+from src.voxel_converter import VoxelConverter
 
+import pathlib
+import PySimpleGUI as sg
 
 class ConverterManager:
     def __init__(self, app_config: AppConfig, pallete: Pallete) -> None:

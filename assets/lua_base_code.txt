@@ -1,4 +1,4 @@
-size = {x= 20,y= 32,z =16}
+
 -- effects
 locate_effect = 1322
 success_sound = 10963

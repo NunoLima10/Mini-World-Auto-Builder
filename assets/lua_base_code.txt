@@ -18,13 +18,17 @@ construction =  {
     color_data_index = 2,
 }
 _,host_uin = Player:getHostUin()
-Chat:sendSystemMsg("#WScript generator by #RMini World Auto Builder", host_uin)
-Chat:sendSystemMsg("#Wby #RPlayCraft/Nuno Lima", host_uin)
+
+Chat:sendSystemMsg("#W===============================", host_uin)
+Chat:sendSystemMsg("#WScript generator by", host_uin)
+Chat:sendSystemMsg("#BMini World Auto Builder", host_uin)
+Chat:sendSystemMsg("#Wby #RNuno Lima/PlayCraft", host_uin)
+Chat:sendSystemMsg("#W===============================", host_uin)
 
 function set_position(x, y, z)
     if construction.x and construction.y and construction.z then
         Player:playMusic(host_uin,warning_sound,100,1,false)
-        Chat:sendSystemMsg("#Y⊘     #WPosition has already been chosen", host_uin)
+        Chat:sendSystemMsg("#Y⊘ #WPosition has already been chosen", host_uin)
         return
     end
     construction.x = x
@@ -32,17 +36,17 @@ function set_position(x, y, z)
     construction.z = z
     World:playParticalEffect(x,y,z,locate_effect,1)
     Player:playMusic(host_uin,success_sound,100,1,false)
-    Chat:sendSystemMsg("#G⊙     #WPosition has been set ".."   #RX:#b"..construction.x.."#n   #BY: #b"..construction.y.."#n   #GZ: #b"..construction.z, host_uin)
+    Chat:sendSystemMsg("#G⊙ #WPosition set ".." #Rx:#b"..construction.x.."#n #By: #b"..construction.y.."#n #Gz: #b"..construction.z, host_uin)
 end
 
 function build()
     if not(construction.x and construction.y and construction.z) then
-        Chat:sendChat("#R⊗      #WUndefined position", 0)
+        Chat:sendChat("#R⊗  #WUndefined position", 0)
         Player:playMusic(host_uin,error_sound,100,1,false)
         return
     end
     if construction.finished then 
-        Chat:sendSystemMsg("#R⊗     #WContruction already done!", host_uin)
+        Chat:sendSystemMsg("#R⊗ #WContruction already done!", host_uin)
         Player:playMusic(host_uin,error_sound,100,1,false)
         return
     end
@@ -59,7 +63,7 @@ function build()
     construction.finished = true
     World:stopEffectOnPosition(construction.x,construction.y - 1,construction.z,locate_effect)
     Player:playMusic(host_uin,success_sound,100,1,false)
-    Chat:sendSystemMsg("#G⊙     #WConstrution completed!", host_uin)
+    Chat:sendSystemMsg("#G⊙ #WConstrution completed!", host_uin)
 end
 
 function clean()
@@ -73,21 +77,21 @@ function clean()
    end
     construction.finished =  false
     Player:playMusic(host_uin,success_sound,100,1,false)
-    Chat:sendSystemMsg("#G⊙     #WConstruction has been eliminated!", host_uin)
+    Chat:sendSystemMsg("#G⊙ #WConstruction has been eliminated!", host_uin)
 end
 
 function reset()
     if construction.finished then
         Player:playMusic(host_uin,error_sound,100,1,false)
-        Chat:sendSystemMsg("#R⊗     #WContruction already done!", host_uin)
+        Chat:sendSystemMsg("#R⊗ #WContruction already done!", host_uin)
         return 
     end
     World:stopEffectOnPosition(construction.x,construction.y - 1,construction.z,locate_effect)
     construction.x = nil
     construction.y = nil
     construction.z = nil
-    Chat:sendSystemMsg("#Y⊘     #WPosition has been reset!", host_uin)
-    Player:playMusic(host_uin,warning_sound,100,1,false)
+    Chat:sendSystemMsg("#G⊙ #WPosition has been reset!", host_uin)
+    Player:playMusic(host_uin,success_sound,100,1,false)
 end
 
 

@@ -2,7 +2,7 @@
 <img src="Imagens/banner.jpg">
 
 ## Description
-This program was created with the intention of facilitating mini game developers in the Mini World Creata game, making it possible to use an external tool such as MagicaVoxel to create voxel models with more efficiency and quality, the purpose of the app is to generate a script for the automatic construction in the game from voxel models.
+This program was created with the intention of facilitating mini game developers in the Mini World Creata game, making it possible to use an external tool such as [MagicaVoxel](https://ephtracy.github.io/) to create voxel models with more efficiency and quality, the purpose of the app is to generate a script for the automatic construction in the game from voxel models.
 
 ## How to use
 

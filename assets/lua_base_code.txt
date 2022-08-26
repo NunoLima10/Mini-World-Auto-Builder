@@ -1,0 +1,144 @@
+
+-- effects
+locate_effect = 1322
+success_sound = 10963
+warning_sound = 10956
+error_sound = 10960
+
+construction =  {
+    x = nil,
+    y = nil,
+    z = nil,
+    finished = false,
+    x_face = 1,
+    y_face = 3,
+    z_face = 2,
+    block_info_index = 4,
+    block_id_index = 1,
+    color_data_index = 2,
+}
+_,host_uin = Player:getHostUin()
+
+Chat:sendSystemMsg("#W===============================", host_uin)
+Chat:sendSystemMsg("#WScript generator by", host_uin)
+Chat:sendSystemMsg("#BMini World Auto Builder", host_uin)
+Chat:sendSystemMsg("#Wby #RNuno Lima/PlayCraft", host_uin)
+Chat:sendSystemMsg("#W===============================", host_uin)
+
+function set_position(x, y, z)
+    if construction.x and construction.y and construction.z then
+        Player:playMusic(host_uin,warning_sound,100,1,false)
+        Chat:sendSystemMsg("#Y⊘ #WPosition has already been chosen", host_uin)
+        return
+    end
+    construction.x = x
+    construction.y = y + 1
+    construction.z = z
+    World:playParticalEffect(x,y,z,locate_effect,1)
+    Player:playMusic(host_uin,success_sound,100,1,false)
+    Chat:sendSystemMsg("#G⊙ #WPosition set ".." #Rx:#b"..construction.x.."#n #By: #b"..construction.y.."#n #Gz: #b"..construction.z, host_uin)
+end
+
+function build()
+    if not(construction.x and construction.y and construction.z) then
+        Chat:sendChat("#R⊗  #WUndefined position", 0)
+        Player:playMusic(host_uin,error_sound,100,1,false)
+        return
+    end
+    if construction.finished then 
+        Chat:sendSystemMsg("#R⊗ #WContruction already done!", host_uin)
+        Player:playMusic(host_uin,error_sound,100,1,false)
+        return
+    end
+    for i = 1, #blocks_positions do
+        --threadpool:wait(0.0000000000001)
+        local x_pos = construction.x + blocks_positions[i][construction.x_face]
+        local y_pos = construction.y + blocks_positions[i][construction.y_face]
+        local z_pos = construction.z + blocks_positions[i][construction.z_face]
+        local block_id =  blocks_pallete[blocks_positions[i][construction.block_info_index]][construction.block_id_index]
+        local color_data = blocks_pallete[blocks_positions[i][construction.block_info_index] ][construction.color_data_index]        
+        Block:setBlockAll(x_pos, y_pos, z_pos, block_id, color_data)
+    end
+
+    construction.finished = true
+    World:stopEffectOnPosition(construction.x,construction.y - 1,construction.z,locate_effect)
+    Player:playMusic(host_uin,success_sound,100,1,false)
+    Chat:sendSystemMsg("#G⊙ #WConstrution completed!", host_uin)
+end
+
+function clean()
+   if not construction.finished then return end
+   for i = 1, #blocks_positions do
+        --threadpool:wait(0.0000000000001)
+        local x_pos = construction.x + blocks_positions[i][construction.x_face]
+        local y_pos = construction.y + blocks_positions[i][construction.y_face]
+        local z_pos = construction.z + blocks_positions[i][construction.z_face]
+        Block:destroyBlock(x_pos,y_pos,z_pos,false)
+   end
+    construction.finished =  false
+    Player:playMusic(host_uin,success_sound,100,1,false)
+    Chat:sendSystemMsg("#G⊙ #WConstruction has been eliminated!", host_uin)
+end
+
+function reset()
+    if construction.finished then
+        Player:playMusic(host_uin,error_sound,100,1,false)
+        Chat:sendSystemMsg("#R⊗ #WContruction already done!", host_uin)
+        return 
+    end
+    World:stopEffectOnPosition(construction.x,construction.y - 1,construction.z,locate_effect)
+    construction.x = nil
+    construction.y = nil
+    construction.z = nil
+    Chat:sendSystemMsg("#G⊙ #WPosition has been reset!", host_uin)
+    Player:playMusic(host_uin,success_sound,100,1,false)
+end
+
+
+function help()
+    Chat:sendSystemMsg("/build #WTo build automatically", host_uin)
+    Chat:sendSystemMsg("/clean #WTo clean the building", host_uin)
+    Chat:sendSystemMsg("/reset #WTo reset build position", host_uin)
+    Chat:sendSystemMsg("[Info] #WConstruction is always fair to the north", host_uin)
+end
+
+function run_command(input_text)
+    commands = {
+        build = build,
+        clean = clean,
+        reset = reset,
+        help = help
+    }
+    local comand = {
+            prefix = input_text:sub(0,1),
+            option = input_text:sub(2,input_text:len())
+    }
+    if comand.prefix ~= "/" then
+        return
+    end
+    for key, comand_funtion in pairs(commands) do
+        if key == comand.option then
+            comand_funtion()
+        end
+    end
+end
+
+
+function click_event(event)
+    if event.eventobjid ~= host_uin then
+        return
+    end
+    set_position(event.x, event.y, event.z)
+end 
+
+
+function chat_input_evenft(event)
+    if event.eventobjid ~= host_uin then
+        return
+    end
+    local input_text = event.content
+    run_command(input_text)
+
+end
+ScriptSupportEvent:registerEvent([=[Player.ClickBlock]=], click_event)
+ScriptSupportEvent:registerEvent([=[Player.InputContent]=],  chat_input_evenft)
